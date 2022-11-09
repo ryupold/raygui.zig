@@ -145,6 +145,11 @@ bool mGuiTextBox(Rectangle *bounds, char * text, int textSize, bool editMode)
 	return GuiTextBox(*bounds, text, textSize, editMode);
 }
 
+bool mGuiTextBoxMulti(Rectangle *bounds, char * text, int textSize, bool editMode)
+{
+	return GuiTextBoxMulti(*bounds, text, textSize, editMode);
+}
+
 float mGuiSlider(Rectangle *bounds, const char * textLeft, const char * textRight, float value, float minValue, float maxValue)
 {
 	return GuiSlider(*bounds, textLeft, textRight, value, minValue, maxValue);
@@ -178,6 +183,11 @@ void mGuiGrid(Vector2 *out, Rectangle *bounds, const char * text, float spacing,
 int mGuiListView(Rectangle *bounds, const char * text, int * scrollIndex, int active)
 {
 	return GuiListView(*bounds, text, scrollIndex, active);
+}
+
+int mGuiListViewEx(Rectangle *bounds, const char ** text, int count, int * focus, int * scrollIndex, int active)
+{
+	return GuiListViewEx(*bounds, text, count, focus, scrollIndex, active);
 }
 
 int mGuiMessageBox(Rectangle *bounds, const char * title, const char * message, const char * buttons)

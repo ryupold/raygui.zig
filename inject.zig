@@ -11,34 +11,6 @@ pub const Color = raylib.Color;
 pub const RICON_SIZE = 32;
 pub const RICON_DATA_ELEMENTS = 255;
 
-/// Load style from file (.rgs)
-pub fn LoadGuiStyle(_: [*:0]const u8) u32 {
-    // return raygui.LoadGuiStyle(fileName);
-    return 0;
-}
-
-/// Unload style
-pub fn UnloadGuiStyle(_: u32) void {
-    // raygui.UnloadGuiStyle(style);
-}
-
-/// Text Box control with multiple lines
-pub fn GuiTextBoxMulti(_: Rectangle, _: [*]u8, _: i32, _: bool) bool {
-    @panic("this gets translated wrong with cImport");
-}
-
-/// List View with extended parameters
-pub fn GuiListViewEx(
-    _: Rectangle,
-    _: [*]const [*:0]const u8,
-    _: i32,
-    _: [*]i32,
-    _: [*]i32,
-    _: i32,
-) i32 {
-    @panic("TODO: link with raygui somehow");
-}
-
 pub fn textAlignPixelOffset(h: i32) i32 {
     return h % 2;
 }

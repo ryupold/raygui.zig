@@ -87,6 +87,9 @@ bool mGuiValueBox(Rectangle *bounds, const char * text, int * value, int minValu
 // Text Box control, updates input text
 bool mGuiTextBox(Rectangle *bounds, char * text, int textSize, bool editMode);
 
+// Text Box control with multiple lines
+bool mGuiTextBoxMulti(Rectangle *bounds, char * text, int textSize, bool editMode);
+
 // Slider control, returns selected value
 float mGuiSlider(Rectangle *bounds, const char * textLeft, const char * textRight, float value, float minValue, float maxValue);
 
@@ -107,6 +110,9 @@ void mGuiGrid(Vector2 *out, Rectangle *bounds, const char * text, float spacing,
 
 // List View control, returns selected list item index
 int mGuiListView(Rectangle *bounds, const char * text, int * scrollIndex, int active);
+
+// List View with extended parameters
+int mGuiListViewEx(Rectangle *bounds, const char ** text, int count, int * focus, int * scrollIndex, int active);
 
 // Message Box control, displays a message
 int mGuiMessageBox(Rectangle *bounds, const char * title, const char * message, const char * buttons);
