@@ -52,19 +52,19 @@
             "params": [
                 {
                     "name": "state",
-                    "typ": "i32"
+                    "typ": "GuiState"
                 }
             ],
             "returnType": "void",
             "description": "Set gui state (global state)",
-            "custom": false
+            "custom": true
         },
         {
             "name": "GuiGetState",
             "params": [],
-            "returnType": "i32",
+            "returnType": "GuiState",
             "description": "Get gui state (global state)",
-            "custom": false
+            "custom": true
         },
         {
             "name": "GuiSetFont",
@@ -90,7 +90,7 @@
             "params": [
                 {
                     "name": "control",
-                    "typ": "i32"
+                    "typ": "GuiControl"
                 },
                 {
                     "name": "property",
@@ -103,14 +103,14 @@
             ],
             "returnType": "void",
             "description": "Set one style property",
-            "custom": false
+            "custom": true
         },
         {
             "name": "GuiGetStyle",
             "params": [
                 {
                     "name": "control",
-                    "typ": "i32"
+                    "typ": "GuiControl"
                 },
                 {
                     "name": "property",
@@ -119,7 +119,7 @@
             ],
             "returnType": "i32",
             "description": "Get one style property",
-            "custom": false
+            "custom": true
         },
         {
             "name": "GuiWindowBox",
@@ -374,7 +374,7 @@
                 },
                 {
                     "name": "active",
-                    "typ": "?[*]i32"
+                    "typ": "?*i32"
                 },
                 {
                     "name": "editMode",
@@ -383,7 +383,7 @@
             ],
             "returnType": "bool",
             "description": "Dropdown Box control, returns selected item",
-            "custom": false
+            "custom": true
         },
         {
             "name": "GuiSpinner",
@@ -398,7 +398,7 @@
                 },
                 {
                     "name": "value",
-                    "typ": "?[*]i32"
+                    "typ": "*i32"
                 },
                 {
                     "name": "minValue",
@@ -415,7 +415,7 @@
             ],
             "returnType": "bool",
             "description": "Spinner control, returns selected value",
-            "custom": false
+            "custom": true
         },
         {
             "name": "GuiValueBox",
@@ -430,7 +430,7 @@
                 },
                 {
                     "name": "value",
-                    "typ": "?[*]i32"
+                    "typ": "*i32"
                 },
                 {
                     "name": "minValue",
@@ -447,7 +447,7 @@
             ],
             "returnType": "bool",
             "description": "Value Box control, updates input text with numbers",
-            "custom": false
+            "custom": true
         },
         {
             "name": "GuiTextBox",
@@ -662,7 +662,7 @@
                 },
                 {
                     "name": "scrollIndex",
-                    "typ": "?[*]i32"
+                    "typ": "?*i32"
                 },
                 {
                     "name": "active",
@@ -671,7 +671,7 @@
             ],
             "returnType": "i32",
             "description": "List View control, returns selected list item index",
-            "custom": false
+            "custom": true
         },
         {
             "name": "GuiListViewEx",

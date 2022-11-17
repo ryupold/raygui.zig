@@ -102,16 +102,20 @@ pub fn GuiFade(
 
 /// Set gui state (global state)
 pub fn GuiSetState(
-    state: i32,
+    state: GuiState,
 ) void {
     raygui.mGuiSetState(
-        state,
+        @enumToInt(state),
     );
 }
 
 /// Get gui state (global state)
-pub fn GuiGetState() i32 {
-    return raygui.mGuiGetState();
+pub fn GuiGetState() GuiState {
+    var out: GuiState = undefined;
+    raygui.mGuiGetState(
+        @ptrCast([*c]GuiState, &out),
+    );
+    return out;
 }
 
 /// Set gui custom font (global state)
@@ -134,12 +138,12 @@ pub fn GuiGetFont() Font {
 
 /// Set one style property
 pub fn GuiSetStyle(
-    control: i32,
+    control: GuiControl,
     property: i32,
     value: i32,
 ) void {
     raygui.mGuiSetStyle(
-        control,
+        @enumToInt(control),
         property,
         value,
     );
@@ -147,11 +151,11 @@ pub fn GuiSetStyle(
 
 /// Get one style property
 pub fn GuiGetStyle(
-    control: i32,
+    control: GuiControl,
     property: i32,
 ) i32 {
     return raygui.mGuiGetStyle(
-        control,
+        @enumToInt(control),
         property,
     );
 }
@@ -211,7 +215,7 @@ pub fn GuiTabBar(
         @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
         @intToPtr([*c]const [*:0]const u8, @ptrToInt(text)),
         count,
-        active,
+        @ptrCast([*c]i32, active),
     );
 }
 
@@ -228,7 +232,7 @@ pub fn GuiScrollPanel(
         @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
         @intToPtr([*c]const u8, @ptrToInt(text)),
         @intToPtr([*c]raygui.Rectangle, @ptrToInt(&content)),
-        scroll,
+        @intToPtr([*c]raygui.Vector2, @ptrToInt(scroll)),
     );
     return out;
 }
@@ -322,13 +326,13 @@ pub fn GuiComboBox(
 pub fn GuiDropdownBox(
     bounds: Rectangle,
     text: [*:0]const u8,
-    active: ?[*]i32,
+    active: ?*i32,
     editMode: bool,
 ) bool {
     return raygui.mGuiDropdownBox(
         @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
         @intToPtr([*c]const u8, @ptrToInt(text)),
-        active,
+        @ptrCast([*c]i32, active),
         editMode,
     );
 }
@@ -337,7 +341,7 @@ pub fn GuiDropdownBox(
 pub fn GuiSpinner(
     bounds: Rectangle,
     text: [*:0]const u8,
-    value: ?[*]i32,
+    value: *i32,
     minValue: i32,
     maxValue: i32,
     editMode: bool,
@@ -345,7 +349,7 @@ pub fn GuiSpinner(
     return raygui.mGuiSpinner(
         @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
         @intToPtr([*c]const u8, @ptrToInt(text)),
-        value,
+        @ptrCast([*c]i32, value),
         minValue,
         maxValue,
         editMode,
@@ -356,7 +360,7 @@ pub fn GuiSpinner(
 pub fn GuiValueBox(
     bounds: Rectangle,
     text: [*:0]const u8,
-    value: ?[*]i32,
+    value: *i32,
     minValue: i32,
     maxValue: i32,
     editMode: bool,
@@ -364,7 +368,7 @@ pub fn GuiValueBox(
     return raygui.mGuiValueBox(
         @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
         @intToPtr([*c]const u8, @ptrToInt(text)),
-        value,
+        @ptrCast([*c]i32, value),
         minValue,
         maxValue,
         editMode,
@@ -380,7 +384,7 @@ pub fn GuiTextBox(
 ) bool {
     return raygui.mGuiTextBox(
         @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        text,
+        @ptrCast([*c]u8, text),
         textSize,
         editMode,
     );
@@ -395,7 +399,7 @@ pub fn GuiTextBoxMulti(
 ) bool {
     return raygui.mGuiTextBoxMulti(
         @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        text,
+        @ptrCast([*c]u8, text),
         textSize,
         editMode,
     );
@@ -502,13 +506,13 @@ pub fn GuiGrid(
 pub fn GuiListView(
     bounds: Rectangle,
     text: [*:0]const u8,
-    scrollIndex: ?[*]i32,
+    scrollIndex: ?*i32,
     active: i32,
 ) i32 {
     return raygui.mGuiListView(
         @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
         @intToPtr([*c]const u8, @ptrToInt(text)),
-        scrollIndex,
+        @ptrCast([*c]i32, scrollIndex),
         active,
     );
 }
@@ -526,8 +530,8 @@ pub fn GuiListViewEx(
         @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
         @intToPtr([*c]const [*:0]const u8, @ptrToInt(text)),
         count,
-        focus,
-        scrollIndex,
+        @ptrCast([*c]i32, focus),
+        @ptrCast([*c]i32, scrollIndex),
         active,
     );
 }
@@ -562,9 +566,9 @@ pub fn GuiTextInputBox(
         @intToPtr([*c]const u8, @ptrToInt(title)),
         @intToPtr([*c]const u8, @ptrToInt(message)),
         @intToPtr([*c]const u8, @ptrToInt(buttons)),
-        text,
+        @ptrCast([*c]u8, text),
         textMaxSize,
-        secretViewActive,
+        @ptrCast([*c]i32, secretViewActive),
     );
 }
 
@@ -655,12 +659,11 @@ pub fn GuiIconText(
 }
 
 /// Get raygui icons data pointer
-pub fn GuiGetIcons() ?[*]u32 {
-    var out: ?[*]u32 = undefined;
-    raygui.mGuiGetIcons(
-        @ptrCast([*c]?[*]u32, &out),
+pub fn GuiGetIcons() [*]const u32 {
+    return @ptrCast(
+        ?[*]u32,
+        raygui.mGuiGetIcons(),
     );
-    return out;
 }
 
 /// Load raygui icons file (.rgi) into internal icons data
