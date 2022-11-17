@@ -9,7 +9,7 @@ pub fn build(b: *std.build.Builder) !void {
     //--- parse raygui and generate JSONs for all signatures --------------------------------------
     const jsons = b.step("parse", "parse raygui headers and generate raylib parser output as json");
     const raylib_parser_build = b.addExecutable("raylib_parser", "raylib_parser.zig");
-    raylib_parser_build.addCSourceFile("raylib/raylib/parser/raylib_parser.c", &.{});
+    raylib_parser_build.addCSourceFile("../raylib/raylib/parser/raylib_parser.c", &.{});
     raylib_parser_build.setTarget(target);
     raylib_parser_build.setBuildMode(.ReleaseFast);
     raylib_parser_build.linkLibC();
