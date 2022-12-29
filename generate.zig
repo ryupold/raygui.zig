@@ -94,8 +94,8 @@ const Injections = struct {
         }
 
         return @This(){
-            .lines = injectZigLines.toOwnedSlice(),
-            .symbols = symbols.toOwnedSlice(),
+            .lines = try injectZigLines.toOwnedSlice(),
+            .symbols = try symbols.toOwnedSlice(),
         };
     }
 
