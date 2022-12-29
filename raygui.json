@@ -3085,6 +3085,27 @@
       "returnType": "void"
     },
     {
+      "name": "GuiEnableTooltip",
+      "description": "Enable gui tooltips (global state)",
+      "returnType": "void"
+    },
+    {
+      "name": "GuiDisableTooltip",
+      "description": "Disable gui tooltips (global state)",
+      "returnType": "void"
+    },
+    {
+      "name": "GuiSetTooltip",
+      "description": "Set tooltip string",
+      "returnType": "void",
+      "params": [
+        {
+          "type": "const char *",
+          "name": "tooltip"
+        }
+      ]
+    },
+    {
       "name": "GuiIconText",
       "description": "Get text with icon id prepended (if supported)",
       "returnType": "const char *",

@@ -230,6 +230,21 @@ void mGuiLoadStyleDefault(void)
 	GuiLoadStyleDefault();
 }
 
+void mGuiEnableTooltip(void)
+{
+	GuiEnableTooltip();
+}
+
+void mGuiDisableTooltip(void)
+{
+	GuiDisableTooltip();
+}
+
+void mGuiSetTooltip(const char * tooltip)
+{
+	GuiSetTooltip(tooltip);
+}
+
 const char * mGuiIconText(int iconId, const char * text)
 {
 	return GuiIconText(iconId, text);

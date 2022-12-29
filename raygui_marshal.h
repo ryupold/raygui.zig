@@ -138,6 +138,15 @@ void mGuiLoadStyle(const char * fileName);
 // Load style default over global style
 void mGuiLoadStyleDefault(void);
 
+// Enable gui tooltips (global state)
+void mGuiEnableTooltip(void);
+
+// Disable gui tooltips (global state)
+void mGuiDisableTooltip(void);
+
+// Set tooltip string
+void mGuiSetTooltip(const char * tooltip);
+
 // Get text with icon id prepended (if supported)
 const char * mGuiIconText(int iconId, const char * text);
 

@@ -644,6 +644,25 @@ pub fn GuiLoadStyleDefault() void {
     raygui.mGuiLoadStyleDefault();
 }
 
+/// Enable gui tooltips (global state)
+pub fn GuiEnableTooltip() void {
+    raygui.mGuiEnableTooltip();
+}
+
+/// Disable gui tooltips (global state)
+pub fn GuiDisableTooltip() void {
+    raygui.mGuiDisableTooltip();
+}
+
+/// Set tooltip string
+pub fn GuiSetTooltip(
+    tooltip: [*:0]const u8,
+) void {
+    raygui.mGuiSetTooltip(
+        @intToPtr([*c]const u8, @ptrToInt(tooltip)),
+    );
+}
+
 /// Get text with icon id prepended (if supported)
 pub fn GuiIconText(
     iconId: i32,

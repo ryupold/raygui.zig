@@ -865,6 +865,32 @@
             "custom": false
         },
         {
+            "name": "GuiEnableTooltip",
+            "params": [],
+            "returnType": "void",
+            "description": "Enable gui tooltips (global state)",
+            "custom": false
+        },
+        {
+            "name": "GuiDisableTooltip",
+            "params": [],
+            "returnType": "void",
+            "description": "Disable gui tooltips (global state)",
+            "custom": false
+        },
+        {
+            "name": "GuiSetTooltip",
+            "params": [
+                {
+                    "name": "tooltip",
+                    "typ": "[*:0]const u8"
+                }
+            ],
+            "returnType": "void",
+            "description": "Set tooltip string",
+            "custom": false
+        },
+        {
             "name": "GuiIconText",
             "params": [
                 {
