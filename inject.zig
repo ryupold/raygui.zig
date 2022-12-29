@@ -16,9 +16,8 @@ pub fn textAlignPixelOffset(h: i32) i32 {
 }
 
 fn bitCheck(a: u32, b: u32) bool {
-    var r: u32 = undefined;
-    _ = @shlWithOverflow(u32, 1, @truncate(u5, b), &r);
-    return (a & (r)) != 0;
+    const r = @shlWithOverflow(1, @truncate(u5, b));
+    return (a & (r[0])) != 0;
 }
 
 /// Draw selected icon using rectangles pixel-by-pixel
