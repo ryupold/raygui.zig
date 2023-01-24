@@ -260,3 +260,8 @@ char ** mGuiLoadIcons(const char * fileName, bool loadIconsName)
 	return GuiLoadIcons(fileName, loadIconsName);
 }
 
+void mGuiSetIconScale(int scale)
+{
+	GuiSetIconScale(scale);
+}
+

@@ -1,7 +1,7 @@
 ![logo](logo.png)
 
 # raygui.zig
-Idiomatic [raygui](https://github.com/raysan5/raygui) **RAYGUIAPI** (raygui.h) bindings for [Zig](https://ziglang.org/) (0.10.0).
+Idiomatic [raygui](https://github.com/raysan5/raygui) **RAYGUIAPI** (raygui.h) bindings for [Zig](https://ziglang.org/) (master).
 
 ## usage
 

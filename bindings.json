@@ -956,6 +956,18 @@
             "returnType": "void",
             "description": "",
             "custom": false
+        },
+        {
+            "name": "GuiSetIconScale",
+            "params": [
+                {
+                    "name": "scale",
+                    "typ": "i32"
+                }
+            ],
+            "returnType": "void",
+            "description": "Set icon drawing size",
+            "custom": false
         }
     ],
     "enums": [

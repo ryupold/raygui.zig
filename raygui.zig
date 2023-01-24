@@ -698,6 +698,15 @@ pub fn GuiLoadIcons(
     );
 }
 
+/// Set icon drawing size
+pub fn GuiSetIconScale(
+    scale: i32,
+) void {
+    raygui.mGuiSetIconScale(
+        scale,
+    );
+}
+
 /// Vector3 type                 // -- ConvertHSVtoRGB(), ConvertRGBtoHSV()
 pub const Vector3 = extern struct {
     ///

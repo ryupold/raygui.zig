@@ -156,3 +156,6 @@ unsigned int * mGuiGetIcons(void);
 // Load raygui icons file (.rgi) into internal icons data
 char ** mGuiLoadIcons(const char * fileName, bool loadIconsName);
 
+// Set icon drawing size
+void mGuiSetIconScale(int scale);
+
