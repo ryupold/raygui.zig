@@ -3,7 +3,7 @@ const generate = @import("generate.zig");
 
 const rayguiSrc = "raygui/src/";
 
-pub fn build(b: *std.build.Builder) !void {
+pub fn build(b: *std.Build) !void {
     const target = b.standardTargetOptions(.{});
 
     //--- parse raygui and generate JSONs for all signatures --------------------------------------
