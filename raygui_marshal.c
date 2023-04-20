@@ -145,11 +145,6 @@ bool mGuiTextBox(Rectangle *bounds, char * text, int textSize, bool editMode)
 	return GuiTextBox(*bounds, text, textSize, editMode);
 }
 
-bool mGuiTextBoxMulti(Rectangle *bounds, char * text, int textSize, bool editMode)
-{
-	return GuiTextBoxMulti(*bounds, text, textSize, editMode);
-}
-
 float mGuiSlider(Rectangle *bounds, const char * textLeft, const char * textRight, float value, float minValue, float maxValue)
 {
 	return GuiSlider(*bounds, textLeft, textRight, value, minValue, maxValue);
@@ -250,6 +245,11 @@ const char * mGuiIconText(int iconId, const char * text)
 	return GuiIconText(iconId, text);
 }
 
+void mGuiSetIconScale(int scale)
+{
+	GuiSetIconScale(scale);
+}
+
 unsigned int * mGuiGetIcons(void)
 {
 	return GuiGetIcons();
@@ -258,10 +258,5 @@ unsigned int * mGuiGetIcons(void)
 char ** mGuiLoadIcons(const char * fileName, bool loadIconsName)
 {
 	return GuiLoadIcons(fileName, loadIconsName);
-}
-
-void mGuiSetIconScale(int scale)
-{
-	GuiSetIconScale(scale);
 }
 

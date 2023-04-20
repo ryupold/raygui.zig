@@ -474,30 +474,6 @@
             "custom": false
         },
         {
-            "name": "GuiTextBoxMulti",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "?[*]u8"
-                },
-                {
-                    "name": "textSize",
-                    "typ": "i32"
-                },
-                {
-                    "name": "editMode",
-                    "typ": "bool"
-                }
-            ],
-            "returnType": "bool",
-            "description": "Text Box control with multiple lines",
-            "custom": false
-        },
-        {
             "name": "GuiSlider",
             "params": [
                 {
@@ -907,6 +883,18 @@
             "custom": false
         },
         {
+            "name": "GuiSetIconScale",
+            "params": [
+                {
+                    "name": "scale",
+                    "typ": "i32"
+                }
+            ],
+            "returnType": "void",
+            "description": "Set default icon drawing size",
+            "custom": false
+        },
+        {
             "name": "GuiGetIcons",
             "params": [],
             "returnType": "?[*]u32",
@@ -954,19 +942,7 @@
                 }
             ],
             "returnType": "void",
-            "description": "",
-            "custom": false
-        },
-        {
-            "name": "GuiSetIconScale",
-            "params": [
-                {
-                    "name": "scale",
-                    "typ": "i32"
-                }
-            ],
-            "returnType": "void",
-            "description": "Set icon drawing size",
+            "description": "Draw icon using pixel size at specified position",
             "custom": false
         }
     ],
@@ -1357,6 +1333,21 @@
                     "name": "TEXT_LINES_SPACING",
                     "value": 17,
                     "description": "TextBoxMulti lines separation"
+                },
+                {
+                    "name": "TEXT_ALIGNMENT_VERTICAL",
+                    "value": 18,
+                    "description": "TextBoxMulti vertical alignment: 0-CENTERED, 1-UP, 2-DOWN"
+                },
+                {
+                    "name": "TEXT_MULTILINE",
+                    "value": 19,
+                    "description": "TextBox supports multiple lines"
+                },
+                {
+                    "name": "TEXT_WRAP_MODE",
+                    "value": 20,
+                    "description": "TextBox wrap mode for multiline: 0-NO_WRAP, 1-CHAR_WRAP, 2-WORD_WRAP"
                 }
             ],
             "description": "TextBox/TextBoxMulti/ValueBox/Spinner",
@@ -2978,9 +2969,30 @@
     ],
     "defines": [
         {
+            "name": "RAYGUI_VERSION_MAJOR",
+            "typ": "i32",
+            "value": "3",
+            "description": "",
+            "custom": false
+        },
+        {
+            "name": "RAYGUI_VERSION_MINOR",
+            "typ": "i32",
+            "value": "5",
+            "description": "",
+            "custom": false
+        },
+        {
+            "name": "RAYGUI_VERSION_PATCH",
+            "typ": "i32",
+            "value": "0",
+            "description": "",
+            "custom": false
+        },
+        {
             "name": "RAYGUI_VERSION",
             "typ": "[]const u8",
-            "value": "\"3.2\"",
+            "value": "\"3.5\"",
             "description": "",
             "custom": false
         },
@@ -3136,6 +3148,20 @@
             "typ": "i32",
             "value": "32",
             "description": "",
+            "custom": false
+        },
+        {
+            "name": "AUTO_CURSOR_COOLDOWN",
+            "typ": "i32",
+            "value": "40",
+            "description": "Frames to wait for autocursor movement",
+            "custom": false
+        },
+        {
+            "name": "AUTO_CURSOR_DELAY",
+            "typ": "i32",
+            "value": "3",
+            "description": "Frames delay for autocursor movement",
             "custom": false
         },
         {

@@ -18,7 +18,7 @@ pub fn build(b: *std.Build) !void {
     raylib_parser_build.linkLibC();
 
     //raygui
-    const raygui_H = raylib_parser_build.run();
+    const raygui_H = b.addRunArtifact(raylib_parser_build);
     raygui_H.addArgs(&.{
         "-i", "raygui/src/raygui.h",
         "-o", "raygui.json",
@@ -29,22 +29,22 @@ pub fn build(b: *std.Build) !void {
 
     //--- Generate intermediate -------------------------------------------------------------------
     const intermediate = b.step("intermediate", "generate intermediate representation of the results from 'zig build parse' (keep custom=true)");
-    const intermediateZig = b.addExecutable(.{
+    var intermediateZig = b.addRunArtifact(b.addExecutable(.{
         .name = "intermediate",
         .root_source_file = std.build.FileSource.relative("intermediate.zig"),
         .target = target,
-    });
-    intermediate.dependOn(&intermediateZig.run().step);
+    }));
+    intermediate.dependOn(&intermediateZig.step);
 
     //--- Generate bindings -----------------------------------------------------------------------
     const bindings = b.step("bindings", "generate bindings in from bindings.json");
-    const generateZig = b.addExecutable(.{
+    var generateZig = b.addRunArtifact(b.addExecutable(.{
         .name = "generate",
         .root_source_file = std.build.FileSource.relative("generate.zig"),
         .target = target,
-    });
+    }));
     const fmt = b.addFmt(.{ .paths = &.{generate.outputFile} });
-    fmt.step.dependOn(&generateZig.run().step);
+    fmt.step.dependOn(&generateZig.step);
     bindings.dependOn(&fmt.step);
 
     //--- just build raylib_parser.exe ------------------------------------------------------------

@@ -389,21 +389,6 @@ pub fn GuiTextBox(
     );
 }
 
-/// Text Box control with multiple lines
-pub fn GuiTextBoxMulti(
-    bounds: Rectangle,
-    text: ?[*]u8,
-    textSize: i32,
-    editMode: bool,
-) bool {
-    return raygui.mGuiTextBoxMulti(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @ptrCast([*c]u8, text),
-        textSize,
-        editMode,
-    );
-}
-
 /// Slider control, returns selected value
 pub fn GuiSlider(
     bounds: Rectangle,
@@ -676,6 +661,15 @@ pub fn GuiIconText(
     );
 }
 
+/// Set default icon drawing size
+pub fn GuiSetIconScale(
+    scale: i32,
+) void {
+    raygui.mGuiSetIconScale(
+        scale,
+    );
+}
+
 /// Get raygui icons data pointer
 pub fn GuiGetIcons() [*]const u32 {
     return @ptrCast(
@@ -695,15 +689,6 @@ pub fn GuiLoadIcons(
             @intToPtr([*c]const u8, @ptrToInt(fileName)),
             loadIconsName,
         ),
-    );
-}
-
-/// Set icon drawing size
-pub fn GuiSetIconScale(
-    scale: i32,
-) void {
-    raygui.mGuiSetIconScale(
-        scale,
     );
 }
 
@@ -955,6 +940,12 @@ pub const GuiTextBoxProperty = enum(i32) {
     TEXT_INNER_PADDING = 16,
     /// TextBoxMulti lines separation
     TEXT_LINES_SPACING = 17,
+    /// TextBoxMulti vertical alignment: 0-CENTERED, 1-UP, 2-DOWN
+    TEXT_ALIGNMENT_VERTICAL = 18,
+    /// TextBox supports multiple lines
+    TEXT_MULTILINE = 19,
+    /// TextBox wrap mode for multiline: 0-NO_WRAP, 1-CHAR_WRAP, 2-WORD_WRAP
+    TEXT_WRAP_MODE = 20,
 };
 
 /// Spinner
@@ -1508,7 +1499,16 @@ pub const GuiIconName = enum(i32) {
 };
 
 ///
-pub const RAYGUI_VERSION: []const u8 = "3.2";
+pub const RAYGUI_VERSION_MAJOR: i32 = 3;
+
+///
+pub const RAYGUI_VERSION_MINOR: i32 = 5;
+
+///
+pub const RAYGUI_VERSION_PATCH: i32 = 0;
+
+///
+pub const RAYGUI_VERSION: []const u8 = "3.5";
 
 ///
 pub const SCROLLBAR_LEFT_SIDE: i32 = 0;
@@ -1575,6 +1575,12 @@ pub const RAYGUI_TABBAR_ITEM_WIDTH: i32 = 160;
 
 ///
 pub const RAYGUI_TOGGLEGROUP_MAX_ITEMS: i32 = 32;
+
+/// Frames to wait for autocursor movement
+pub const AUTO_CURSOR_COOLDOWN: i32 = 40;
+
+/// Frames delay for autocursor movement
+pub const AUTO_CURSOR_DELAY: i32 = 3;
 
 ///
 pub const RAYGUI_VALUEBOX_MAX_CHARS: i32 = 32;

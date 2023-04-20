@@ -87,9 +87,6 @@ bool mGuiValueBox(Rectangle *bounds, const char * text, int * value, int minValu
 // Text Box control, updates input text
 bool mGuiTextBox(Rectangle *bounds, char * text, int textSize, bool editMode);
 
-// Text Box control with multiple lines
-bool mGuiTextBoxMulti(Rectangle *bounds, char * text, int textSize, bool editMode);
-
 // Slider control, returns selected value
 float mGuiSlider(Rectangle *bounds, const char * textLeft, const char * textRight, float value, float minValue, float maxValue);
 
@@ -150,12 +147,12 @@ void mGuiSetTooltip(const char * tooltip);
 // Get text with icon id prepended (if supported)
 const char * mGuiIconText(int iconId, const char * text);
 
+// Set default icon drawing size
+void mGuiSetIconScale(int scale);
+
 // Get raygui icons data pointer
 unsigned int * mGuiGetIcons(void);
 
 // Load raygui icons file (.rgi) into internal icons data
 char ** mGuiLoadIcons(const char * fileName, bool loadIconsName);
-
-// Set icon drawing size
-void mGuiSetIconScale(int scale);
 
