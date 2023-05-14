@@ -15,7 +15,7 @@
     {
       "name": "RAYGUI_VERSION_MINOR",
       "type": "INT",
-      "value": 5,
+      "value": 6,
       "description": ""
     },
     {
@@ -27,7 +27,7 @@
     {
       "name": "RAYGUI_VERSION",
       "type": "STRING",
-      "value": "3.5",
+      "value": "3.6",
       "description": ""
     },
     {
@@ -82,6 +82,12 @@
       "name": "RAYGUI_CLITERAL(name)",
       "type": "MACRO",
       "value": "name",
+      "description": ""
+    },
+    {
+      "name": "CHECK_BOUNDS_ID(src, dst)",
+      "type": "MACRO",
+      "value": "((src.x == dst.x) && (src.y == dst.y) && (src.width == dst.width) && (src.height == dst.height))",
       "description": ""
     },
     {
@@ -219,7 +225,7 @@
     {
       "name": "AUTO_CURSOR_DELAY",
       "type": "INT",
-      "value": 3,
+      "value": 1,
       "description": "Frames delay for autocursor movement"
     },
     {
@@ -2129,7 +2135,7 @@
           "description": ""
         },
         {
-          "name": "ICON_219",
+          "name": "ICON_SAND_TIMER",
           "value": 219,
           "description": ""
         },
