@@ -33,9 +33,7 @@ pub const Intermediate = struct {
         const jsonData = try std.fs.cwd().readFileAlloc(allocator, jsonFile, memoryConstrain);
         defer allocator.free(jsonData);
 
-        var stream = json.TokenStream.init(jsonData);
-        const bindingJson: Intermediate = try json.parse(Intermediate, &stream, .{
-            .allocator = allocator,
+        const bindingJson = try json.parseFromSlice(Intermediate, allocator, jsonData, .{
             .ignore_unknown_fields = true,
         });
 
@@ -188,6 +186,7 @@ pub fn parseRaylibFunction(allocator: Allocator, func: RaylibFunction) !Function
     if (func.params) |params| {
         for (params) |p| {
             const t = try toZig(allocator, p.type);
+
             try args.append(.{
                 .name = p.name,
                 .typ = t,
@@ -256,22 +255,25 @@ pub fn parseRaylibDefine(allocator: Allocator, s: RaylibDefine) ?Define {
 
     if (eql("INT", s.type)) {
         typ = "i32";
-        value = std.fmt.allocPrint(allocator, "{d}", .{s.value.int}) catch return null;
+        value = std.fmt.allocPrint(allocator, "{s}", .{s.value}) catch return null;
     } else if (eql("LONG", s.type)) {
         typ = "i64";
-        value = std.fmt.allocPrint(allocator, "{d}", .{s.value.int}) catch return null;
+        value = std.fmt.allocPrint(allocator, "{s}", .{s.value}) catch return null;
     } else if (eql("FLOAT", s.type)) {
         typ = "f32";
-        value = std.fmt.allocPrint(allocator, "{d}", .{s.value.float}) catch return null;
+        value = std.fmt.allocPrint(allocator, "{s}", .{s.value}) catch return null;
+    } else if (eql("DOUBLE", s.type)) {
+        typ = "f64";
+        value = std.fmt.allocPrint(allocator, "{s}", .{s.value}) catch return null;
     } else if (eql("STRING", s.type)) {
         typ = "[]const u8";
-        value = std.fmt.allocPrint(allocator, "\"{s}\"", .{s.value.string}) catch return null;
+        value = std.fmt.allocPrint(allocator, "\"{s}\"", .{s.value}) catch return null;
     } else if (eql("COLOR", s.type)) {
         typ = "Color";
-        std.debug.assert(startsWith(s.value.string, "CLITERAL(Color){"));
-        std.debug.assert(endsWith(s.value.string, "}"));
+        std.debug.assert(startsWith(s.value, "CLITERAL(Color){"));
+        std.debug.assert(endsWith(s.value, "}"));
 
-        const componentString = s.value.string["CLITERAL(Color){".len .. s.value.string.len - 1];
+        const componentString = s.value["CLITERAL(Color){".len .. s.value.len - 1];
         var spliterator = std.mem.split(u8, componentString, ",");
         var r = spliterator.next() orelse return null;
         r = std.mem.trim(u8, r, " \t\r\n");
@@ -433,8 +435,11 @@ fn toZig(allocator: Allocator, c: []const u8) ![]const u8 {
     }
 
     const consT = if (isConst(c)) "const " else "";
-    const pointeR = if (isPointer(c)) "?[*]" else "";
     const stripped = stripType(c);
+    const pointeR = if (isPointer(c))
+        if (eql(stripped, "unsigned char") or eql(stripped, "char")) "?[*:0]" else "*"
+    else
+        "";
 
     const name = if (raylibToZigType.get(stripped)) |primitive| primitive else stripped;
 
@@ -471,24 +476,26 @@ const raylibToZigType = std.ComptimeStringMap([]const u8, .{
 
 const fixedMapping = std.ComptimeStringMap([]const u8, .{
     .{ "void *", "*anyopaque" },
-    .{ "const void *", "*anyopaque" },
+    .{ "const void *", "*const anyopaque" },
     .{ "const unsigned char *", "[*:0]const u8" },
     .{ "const char *", "[*:0]const u8" },
     .{ "const char **", "[*]const [*:0]const u8" },
     .{ "char **", "[*][*:0]u8" },
     .{ "rAudioBuffer *", "*anyopaque" },
     .{ "rAudioProcessor *", "*anyopaque" },
+    .{ "Image *", "*Image" },
 });
 
 //--- Raylib parser JSONs -------------------------------------------------------------------------
 
 const alias = std.ComptimeStringMap([]const u8, .{
-    .{ "Quaternion", "Vector4" },
     .{ "Camera", "Camera3D" },
     .{ "Texture", "Texture2D" },
-    .{ "TextureCubemap", "raylib.Texture2D" },
-    .{ "RenderTexture", "raylib.RenderTexture2D" },
+    .{ "TextureCubemap", "Texture2D" },
+    .{ "RenderTexture", "RenderTexture2D" },
     .{ "GuiStyle", "u32" },
+    .{ "Quaternion", "Vector4" },
+    .{ "PhysicsBody", "*PhysicsBodyData" },
 });
 
 const cAlias = std.ComptimeStringMap([]const u8, .{
@@ -517,10 +524,9 @@ pub const CombinedRaylib = struct {
             const jsonData = try std.fs.cwd().readFileAlloc(allocator, jsonFile, memoryConstrain);
             defer allocator.free(jsonData);
 
-            var stream = json.TokenStream.init(jsonData);
-            const bindingJson: RaylibJson = try json.parse(RaylibJson, &stream, .{
-                .allocator = allocator,
+            const bindingJson = try json.parseFromSlice(RaylibJson, allocator, jsonData, .{
                 .ignore_unknown_fields = true,
+                .duplicate_field_behavior = .use_last,
             });
 
             for (bindingJson.structs) |*s| {
@@ -657,7 +663,7 @@ pub const RaylibFunctionParam = struct {
 pub const RaylibDefine = struct {
     name: []const u8,
     type: []const u8,
-    value: union(enum) { string: []const u8, int: i64, float: f32 },
+    value: []const u8,
     description: ?[]const u8 = null,
 };
 

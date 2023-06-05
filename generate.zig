@@ -17,7 +17,7 @@ pub fn main() !void {
     std.log.info("generating raygui.zig ...", .{});
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     defer {
-        if (gpa.deinit()) {
+        if (gpa.deinit() == .leak) {
             std.log.err("memory leak detected", .{});
         }
     }
@@ -27,15 +27,12 @@ pub fn main() !void {
 
     const bindingsData = try fs.cwd().readFileAlloc(allocator, intermediate.bindingsJSON, std.math.maxInt(usize));
     defer allocator.free(bindingsData);
-    var stream = json.TokenStream.init(bindingsData);
-    const bindings = try json.parse(mapping.Intermediate, &stream, .{
-        .allocator = allocator,
+
+    const bindings = try json.parseFromSlice(mapping.Intermediate, allocator, bindingsData, .{
         .ignore_unknown_fields = true,
     });
-    defer json.parseFree(mapping.Intermediate, bindings, .{
-        .allocator = allocator,
-        .ignore_unknown_fields = true,
-    });
+
+    defer json.parseFree(mapping.Intermediate, allocator, bindings);
 
     var file = try fs.cwd().createFile(outputFile, .{});
     defer file.close();
@@ -260,7 +257,7 @@ fn writeCSignature(
 
     if (func.params) |params| {
         for (params, 0..) |param, i| {
-            const paramType = param.@"type";
+            const paramType = param.type;
             if (mapping.isPrimitiveOrPointer(paramType)) {
                 try file.writeAll(try allocPrint(allocator, "{s} {s}", .{ paramType, param.name }));
             } else {
@@ -322,7 +319,7 @@ fn writeCFunctions(
 
         if (func.params) |params| {
             for (params, 0..) |param, i| {
-                if (mapping.isPrimitiveOrPointer(param.@"type")) {
+                if (mapping.isPrimitiveOrPointer(param.type)) {
                     try c.writeAll(
                         try allocPrint(
                             allocator,
