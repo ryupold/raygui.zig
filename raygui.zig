@@ -137,12 +137,12 @@ pub fn GuiGetFont() Font {
 
 /// Set one style property
 pub fn GuiSetStyle(
-    control: GuiControl,
+    control: i32,
     property: i32,
     value: i32,
 ) void {
     raygui.mGuiSetStyle(
-        @enumToInt(control),
+        control,
         property,
         value,
     );
@@ -156,461 +156,6 @@ pub fn GuiGetStyle(
     return raygui.mGuiGetStyle(
         @enumToInt(control),
         property,
-    );
-}
-
-/// Window Box control, shows a window that can be closed
-pub fn GuiWindowBox(
-    bounds: Rectangle,
-    title: [*:0]const u8,
-) bool {
-    return raygui.mGuiWindowBox(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(title)),
-    );
-}
-
-/// Group Box control with text name
-pub fn GuiGroupBox(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-) void {
-    raygui.mGuiGroupBox(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-    );
-}
-
-/// Line separator control, could contain text
-pub fn GuiLine(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-) void {
-    raygui.mGuiLine(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-    );
-}
-
-/// Panel control, useful to group controls
-pub fn GuiPanel(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-) void {
-    raygui.mGuiPanel(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-    );
-}
-
-/// Tab Bar control, returns TAB to be closed or -1
-pub fn GuiTabBar(
-    bounds: Rectangle,
-    text: [*]const [*:0]const u8,
-    count: i32,
-    active: ?[*]i32,
-) i32 {
-    return raygui.mGuiTabBar(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const [*:0]const u8, @ptrToInt(text)),
-        count,
-        @ptrCast([*c]i32, active),
-    );
-}
-
-/// Scroll Panel control
-pub fn GuiScrollPanel(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-    content: Rectangle,
-    scroll: ?[*]Vector2,
-) Rectangle {
-    var out: Rectangle = undefined;
-    raygui.mGuiScrollPanel(
-        @ptrCast([*c]raygui.Rectangle, &out),
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&content)),
-        @intToPtr([*c]raygui.Vector2, @ptrToInt(scroll)),
-    );
-    return out;
-}
-
-/// Label control, shows text
-pub fn GuiLabel(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-) void {
-    raygui.mGuiLabel(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-    );
-}
-
-/// Button control, returns true when clicked
-pub fn GuiButton(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-) bool {
-    return raygui.mGuiButton(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-    );
-}
-
-/// Label button control, show true when clicked
-pub fn GuiLabelButton(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-) bool {
-    return raygui.mGuiLabelButton(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-    );
-}
-
-/// Toggle Button control, returns true when active
-pub fn GuiToggle(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-    active: bool,
-) bool {
-    return raygui.mGuiToggle(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-        active,
-    );
-}
-
-/// Toggle Group control, returns active toggle index
-pub fn GuiToggleGroup(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-    active: i32,
-) i32 {
-    return raygui.mGuiToggleGroup(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-        active,
-    );
-}
-
-/// Check Box control, returns true when active
-pub fn GuiCheckBox(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-    checked: bool,
-) bool {
-    return raygui.mGuiCheckBox(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-        checked,
-    );
-}
-
-/// Combo Box control, returns selected item index
-pub fn GuiComboBox(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-    active: i32,
-) i32 {
-    return raygui.mGuiComboBox(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-        active,
-    );
-}
-
-/// Dropdown Box control, returns selected item
-pub fn GuiDropdownBox(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-    active: ?*i32,
-    editMode: bool,
-) bool {
-    return raygui.mGuiDropdownBox(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-        @ptrCast([*c]i32, active),
-        editMode,
-    );
-}
-
-/// Spinner control, returns selected value
-pub fn GuiSpinner(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-    value: *i32,
-    minValue: i32,
-    maxValue: i32,
-    editMode: bool,
-) bool {
-    return raygui.mGuiSpinner(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-        @ptrCast([*c]i32, value),
-        minValue,
-        maxValue,
-        editMode,
-    );
-}
-
-/// Value Box control, updates input text with numbers
-pub fn GuiValueBox(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-    value: *i32,
-    minValue: i32,
-    maxValue: i32,
-    editMode: bool,
-) bool {
-    return raygui.mGuiValueBox(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-        @ptrCast([*c]i32, value),
-        minValue,
-        maxValue,
-        editMode,
-    );
-}
-
-/// Text Box control, updates input text
-pub fn GuiTextBox(
-    bounds: Rectangle,
-    text: ?[*]u8,
-    textSize: i32,
-    editMode: bool,
-) bool {
-    return raygui.mGuiTextBox(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @ptrCast([*c]u8, text),
-        textSize,
-        editMode,
-    );
-}
-
-/// Slider control, returns selected value
-pub fn GuiSlider(
-    bounds: Rectangle,
-    textLeft: [*:0]const u8,
-    textRight: [*:0]const u8,
-    value: f32,
-    minValue: f32,
-    maxValue: f32,
-) f32 {
-    return raygui.mGuiSlider(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(textLeft)),
-        @intToPtr([*c]const u8, @ptrToInt(textRight)),
-        value,
-        minValue,
-        maxValue,
-    );
-}
-
-/// Slider Bar control, returns selected value
-pub fn GuiSliderBar(
-    bounds: Rectangle,
-    textLeft: [*:0]const u8,
-    textRight: [*:0]const u8,
-    value: f32,
-    minValue: f32,
-    maxValue: f32,
-) f32 {
-    return raygui.mGuiSliderBar(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(textLeft)),
-        @intToPtr([*c]const u8, @ptrToInt(textRight)),
-        value,
-        minValue,
-        maxValue,
-    );
-}
-
-/// Progress Bar control, shows current progress value
-pub fn GuiProgressBar(
-    bounds: Rectangle,
-    textLeft: [*:0]const u8,
-    textRight: [*:0]const u8,
-    value: f32,
-    minValue: f32,
-    maxValue: f32,
-) f32 {
-    return raygui.mGuiProgressBar(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(textLeft)),
-        @intToPtr([*c]const u8, @ptrToInt(textRight)),
-        value,
-        minValue,
-        maxValue,
-    );
-}
-
-/// Status Bar control, shows info text
-pub fn GuiStatusBar(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-) void {
-    raygui.mGuiStatusBar(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-    );
-}
-
-/// Dummy control for placeholders
-pub fn GuiDummyRec(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-) void {
-    raygui.mGuiDummyRec(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-    );
-}
-
-/// Grid control, returns mouse cell position
-pub fn GuiGrid(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-    spacing: f32,
-    subdivs: i32,
-) Vector2 {
-    var out: Vector2 = undefined;
-    raygui.mGuiGrid(
-        @ptrCast([*c]raygui.Vector2, &out),
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-        spacing,
-        subdivs,
-    );
-    return out;
-}
-
-/// List View control, returns selected list item index
-pub fn GuiListView(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-    scrollIndex: ?*i32,
-    active: i32,
-) i32 {
-    return raygui.mGuiListView(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-        @ptrCast([*c]i32, scrollIndex),
-        active,
-    );
-}
-
-/// List View with extended parameters
-pub fn GuiListViewEx(
-    bounds: Rectangle,
-    text: [*]const [*:0]const u8,
-    count: i32,
-    focus: ?[*]i32,
-    scrollIndex: ?[*]i32,
-    active: i32,
-) i32 {
-    return raygui.mGuiListViewEx(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const [*:0]const u8, @ptrToInt(text)),
-        count,
-        @ptrCast([*c]i32, focus),
-        @ptrCast([*c]i32, scrollIndex),
-        active,
-    );
-}
-
-/// Message Box control, displays a message
-pub fn GuiMessageBox(
-    bounds: Rectangle,
-    title: [*:0]const u8,
-    message: [*:0]const u8,
-    buttons: [*:0]const u8,
-) i32 {
-    return raygui.mGuiMessageBox(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(title)),
-        @intToPtr([*c]const u8, @ptrToInt(message)),
-        @intToPtr([*c]const u8, @ptrToInt(buttons)),
-    );
-}
-
-/// Text Input Box control, ask for text, supports secret
-pub fn GuiTextInputBox(
-    bounds: Rectangle,
-    title: [*:0]const u8,
-    message: [*:0]const u8,
-    buttons: [*:0]const u8,
-    text: ?[*]u8,
-    textMaxSize: i32,
-    secretViewActive: ?[*]i32,
-) i32 {
-    return raygui.mGuiTextInputBox(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(title)),
-        @intToPtr([*c]const u8, @ptrToInt(message)),
-        @intToPtr([*c]const u8, @ptrToInt(buttons)),
-        @ptrCast([*c]u8, text),
-        textMaxSize,
-        @ptrCast([*c]i32, secretViewActive),
-    );
-}
-
-/// Color Picker control (multiple color controls)
-pub fn GuiColorPicker(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-    color: Color,
-) Color {
-    var out: Color = undefined;
-    raygui.mGuiColorPicker(
-        @ptrCast([*c]raygui.Color, &out),
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-        @intToPtr([*c]raygui.Color, @ptrToInt(&color)),
-    );
-    return out;
-}
-
-/// Color Panel control
-pub fn GuiColorPanel(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-    color: Color,
-) Color {
-    var out: Color = undefined;
-    raygui.mGuiColorPanel(
-        @ptrCast([*c]raygui.Color, &out),
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-        @intToPtr([*c]raygui.Color, @ptrToInt(&color)),
-    );
-    return out;
-}
-
-/// Color Bar Alpha control
-pub fn GuiColorBarAlpha(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-    alpha: f32,
-) f32 {
-    return raygui.mGuiColorBarAlpha(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-        alpha,
-    );
-}
-
-/// Color Bar Hue control
-pub fn GuiColorBarHue(
-    bounds: Rectangle,
-    text: [*:0]const u8,
-    value: f32,
-) f32 {
-    return raygui.mGuiColorBarHue(
-        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
-        @intToPtr([*c]const u8, @ptrToInt(text)),
-        value,
     );
 }
 
@@ -673,7 +218,7 @@ pub fn GuiSetIconScale(
 /// Get raygui icons data pointer
 pub fn GuiGetIcons() [*]const u32 {
     return @ptrCast(
-        ?[*]u32,
+        *u32,
         raygui.mGuiGetIcons(),
     );
 }
@@ -689,6 +234,453 @@ pub fn GuiLoadIcons(
             @intToPtr([*c]const u8, @ptrToInt(fileName)),
             loadIconsName,
         ),
+    );
+}
+
+/// Window Box control, shows a window that can be closed
+pub fn GuiWindowBox(
+    bounds: Rectangle,
+    title: [*:0]const u8,
+) i32 {
+    return raygui.mGuiWindowBox(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(title)),
+    );
+}
+
+/// Group Box control with text name
+pub fn GuiGroupBox(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+) i32 {
+    return raygui.mGuiGroupBox(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+    );
+}
+
+/// Line separator control, could contain text
+pub fn GuiLine(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+) i32 {
+    return raygui.mGuiLine(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+    );
+}
+
+/// Panel control, useful to group controls
+pub fn GuiPanel(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+) i32 {
+    return raygui.mGuiPanel(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+    );
+}
+
+/// Tab Bar control, returns TAB to be closed or -1
+pub fn GuiTabBar(
+    bounds: Rectangle,
+    text: [*]const [*:0]const u8,
+    count: i32,
+    active: *i32,
+) i32 {
+    return raygui.mGuiTabBar(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const [*:0]const u8, @ptrToInt(text)),
+        count,
+        @ptrCast([*c]i32, active),
+    );
+}
+
+/// Scroll Panel control
+pub fn GuiScrollPanel(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+    content: Rectangle,
+    scroll: *Vector2,
+    view: *Rectangle,
+) i32 {
+    return raygui.mGuiScrollPanel(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&content)),
+        @intToPtr([*c]raygui.Vector2, @ptrToInt(scroll)),
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(view)),
+    );
+}
+
+/// Label control, shows text
+pub fn GuiLabel(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+) i32 {
+    return raygui.mGuiLabel(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+    );
+}
+
+/// Button control, returns true when clicked
+pub fn GuiButton(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+) i32 {
+    return raygui.mGuiButton(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+    );
+}
+
+/// Label button control, show true when clicked
+pub fn GuiLabelButton(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+) i32 {
+    return raygui.mGuiLabelButton(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+    );
+}
+
+/// Toggle Button control, returns true when active
+pub fn GuiToggle(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+    active: *bool,
+) i32 {
+    return raygui.mGuiToggle(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+        @ptrCast([*c]bool, active),
+    );
+}
+
+/// Toggle Group control, returns active toggle index
+pub fn GuiToggleGroup(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+    active: *i32,
+) i32 {
+    return raygui.mGuiToggleGroup(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+        @ptrCast([*c]i32, active),
+    );
+}
+
+/// Check Box control, returns true when active
+pub fn GuiCheckBox(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+    checked: *bool,
+) i32 {
+    return raygui.mGuiCheckBox(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+        @ptrCast([*c]bool, checked),
+    );
+}
+
+/// Combo Box control, returns selected item index
+pub fn GuiComboBox(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+    active: *i32,
+) i32 {
+    return raygui.mGuiComboBox(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+        @ptrCast([*c]i32, active),
+    );
+}
+
+/// Dropdown Box control, returns selected item
+pub fn GuiDropdownBox(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+    active: *i32,
+    editMode: bool,
+) i32 {
+    return raygui.mGuiDropdownBox(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+        @ptrCast([*c]i32, active),
+        editMode,
+    );
+}
+
+/// Spinner control, returns selected value
+pub fn GuiSpinner(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+    value: *i32,
+    minValue: i32,
+    maxValue: i32,
+    editMode: bool,
+) i32 {
+    return raygui.mGuiSpinner(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+        @ptrCast([*c]i32, value),
+        minValue,
+        maxValue,
+        editMode,
+    );
+}
+
+/// Value Box control, updates input text with numbers
+pub fn GuiValueBox(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+    value: *i32,
+    minValue: i32,
+    maxValue: i32,
+    editMode: bool,
+) i32 {
+    return raygui.mGuiValueBox(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+        @ptrCast([*c]i32, value),
+        minValue,
+        maxValue,
+        editMode,
+    );
+}
+
+/// Text Box control, updates input text
+pub fn GuiTextBox(
+    bounds: Rectangle,
+    text: ?[*:0]u8,
+    textSize: i32,
+    editMode: bool,
+) i32 {
+    return raygui.mGuiTextBox(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @ptrCast([*c]u8, text),
+        textSize,
+        editMode,
+    );
+}
+
+/// Slider control, returns selected value
+pub fn GuiSlider(
+    bounds: Rectangle,
+    textLeft: [*:0]const u8,
+    textRight: [*:0]const u8,
+    value: *f32,
+    minValue: f32,
+    maxValue: f32,
+) i32 {
+    return raygui.mGuiSlider(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(textLeft)),
+        @intToPtr([*c]const u8, @ptrToInt(textRight)),
+        @ptrCast([*c]f32, value),
+        minValue,
+        maxValue,
+    );
+}
+
+/// Slider Bar control, returns selected value
+pub fn GuiSliderBar(
+    bounds: Rectangle,
+    textLeft: [*:0]const u8,
+    textRight: [*:0]const u8,
+    value: *f32,
+    minValue: f32,
+    maxValue: f32,
+) i32 {
+    return raygui.mGuiSliderBar(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(textLeft)),
+        @intToPtr([*c]const u8, @ptrToInt(textRight)),
+        @ptrCast([*c]f32, value),
+        minValue,
+        maxValue,
+    );
+}
+
+/// Progress Bar control, shows current progress value
+pub fn GuiProgressBar(
+    bounds: Rectangle,
+    textLeft: [*:0]const u8,
+    textRight: [*:0]const u8,
+    value: *f32,
+    minValue: f32,
+    maxValue: f32,
+) i32 {
+    return raygui.mGuiProgressBar(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(textLeft)),
+        @intToPtr([*c]const u8, @ptrToInt(textRight)),
+        @ptrCast([*c]f32, value),
+        minValue,
+        maxValue,
+    );
+}
+
+/// Status Bar control, shows info text
+pub fn GuiStatusBar(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+) i32 {
+    return raygui.mGuiStatusBar(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+    );
+}
+
+/// Dummy control for placeholders
+pub fn GuiDummyRec(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+) i32 {
+    return raygui.mGuiDummyRec(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+    );
+}
+
+/// Grid control, returns mouse cell position
+pub fn GuiGrid(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+    spacing: f32,
+    subdivs: i32,
+    mouseCell: *Vector2,
+) i32 {
+    return raygui.mGuiGrid(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+        spacing,
+        subdivs,
+        @intToPtr([*c]raygui.Vector2, @ptrToInt(mouseCell)),
+    );
+}
+
+/// List View control, returns selected list item index
+pub fn GuiListView(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+    scrollIndex: *i32,
+    active: *i32,
+) i32 {
+    return raygui.mGuiListView(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+        @ptrCast([*c]i32, scrollIndex),
+        @ptrCast([*c]i32, active),
+    );
+}
+
+/// List View with extended parameters
+pub fn GuiListViewEx(
+    bounds: Rectangle,
+    text: [*]const [*:0]const u8,
+    count: i32,
+    scrollIndex: *i32,
+    active: *i32,
+    focus: *i32,
+) i32 {
+    return raygui.mGuiListViewEx(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const [*:0]const u8, @ptrToInt(text)),
+        count,
+        @ptrCast([*c]i32, scrollIndex),
+        @ptrCast([*c]i32, active),
+        @ptrCast([*c]i32, focus),
+    );
+}
+
+/// Message Box control, displays a message
+pub fn GuiMessageBox(
+    bounds: Rectangle,
+    title: [*:0]const u8,
+    message: [*:0]const u8,
+    buttons: [*:0]const u8,
+) i32 {
+    return raygui.mGuiMessageBox(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(title)),
+        @intToPtr([*c]const u8, @ptrToInt(message)),
+        @intToPtr([*c]const u8, @ptrToInt(buttons)),
+    );
+}
+
+/// Text Input Box control, ask for text, supports secret
+pub fn GuiTextInputBox(
+    bounds: Rectangle,
+    title: [*:0]const u8,
+    message: [*:0]const u8,
+    buttons: [*:0]const u8,
+    text: ?[*:0]u8,
+    textMaxSize: i32,
+    secretViewActive: *bool,
+) i32 {
+    return raygui.mGuiTextInputBox(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(title)),
+        @intToPtr([*c]const u8, @ptrToInt(message)),
+        @intToPtr([*c]const u8, @ptrToInt(buttons)),
+        @ptrCast([*c]u8, text),
+        textMaxSize,
+        @ptrCast([*c]bool, secretViewActive),
+    );
+}
+
+/// Color Picker control (multiple color controls)
+pub fn GuiColorPicker(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+    color: *Color,
+) i32 {
+    return raygui.mGuiColorPicker(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+        @intToPtr([*c]raygui.Color, @ptrToInt(color)),
+    );
+}
+
+/// Color Panel control
+pub fn GuiColorPanel(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+    color: *Color,
+) i32 {
+    return raygui.mGuiColorPanel(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+        @intToPtr([*c]raygui.Color, @ptrToInt(color)),
+    );
+}
+
+/// Color Bar Alpha control
+pub fn GuiColorBarAlpha(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+    alpha: *f32,
+) i32 {
+    return raygui.mGuiColorBarAlpha(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+        @ptrCast([*c]f32, alpha),
+    );
+}
+
+/// Color Bar Hue control
+pub fn GuiColorBarHue(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+    value: *f32,
+) i32 {
+    return raygui.mGuiColorBarHue(
+        @intToPtr([*c]raygui.Rectangle, @ptrToInt(&bounds)),
+        @intToPtr([*c]const u8, @ptrToInt(text)),
+        @ptrCast([*c]f32, value),
     );
 }
 
@@ -755,9 +747,9 @@ pub const Font = extern struct {
     /// Texture atlas containing the glyphs
     texture: Texture2D,
     /// Rectangles in texture for the glyphs
-    recs: ?[*]Rectangle,
+    recs: *Rectangle,
     /// Glyphs info data
-    glyphs: ?[*]GlyphInfo,
+    glyphs: *GlyphInfo,
 };
 
 /// Style property
@@ -1423,7 +1415,7 @@ pub const GuiIconName = enum(i32) {
     ///
     ICON_FILE = 218,
     ///
-    ICON_219 = 219,
+    ICON_SAND_TIMER = 219,
     ///
     ICON_220 = 220,
     ///
@@ -1499,16 +1491,16 @@ pub const GuiIconName = enum(i32) {
 };
 
 ///
-pub const RAYGUI_VERSION_MAJOR: i32 = 3;
+pub const RAYGUI_VERSION_MAJOR: i32 = 4;
 
 ///
-pub const RAYGUI_VERSION_MINOR: i32 = 5;
+pub const RAYGUI_VERSION_MINOR: i32 = 0;
 
 ///
 pub const RAYGUI_VERSION_PATCH: i32 = 0;
 
 ///
-pub const RAYGUI_VERSION: []const u8 = "3.5";
+pub const RAYGUI_VERSION: []const u8 = "4.0-dev";
 
 ///
 pub const SCROLLBAR_LEFT_SIDE: i32 = 0;
@@ -1577,10 +1569,10 @@ pub const RAYGUI_TABBAR_ITEM_WIDTH: i32 = 160;
 pub const RAYGUI_TOGGLEGROUP_MAX_ITEMS: i32 = 32;
 
 /// Frames to wait for autocursor movement
-pub const AUTO_CURSOR_COOLDOWN: i32 = 40;
+pub const RAYGUI_TEXTBOX_AUTO_CURSOR_COOLDOWN: i32 = 40;
 
 /// Frames delay for autocursor movement
-pub const AUTO_CURSOR_DELAY: i32 = 3;
+pub const RAYGUI_TEXTBOX_AUTO_CURSOR_DELAY: i32 = 1;
 
 ///
 pub const RAYGUI_VALUEBOX_MAX_CHARS: i32 = 32;
@@ -1604,7 +1596,7 @@ pub const RAYGUI_TEXTINPUTBOX_BUTTON_PADDING: i32 = 12;
 pub const RAYGUI_TEXTINPUTBOX_HEIGHT: i32 = 26;
 
 ///
-pub const RAYGUI_GRID_ALPHA: f32 = 0.15000000596046448;
+pub const RAYGUI_GRID_ALPHA: f32 = 0.15;
 
 ///
 pub const MAX_LINE_BUFFER_SIZE: i32 = 256;

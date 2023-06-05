@@ -90,7 +90,7 @@
             "params": [
                 {
                     "name": "control",
-                    "typ": "GuiControl"
+                    "typ": "i32"
                 },
                 {
                     "name": "property",
@@ -120,706 +120,6 @@
             "returnType": "i32",
             "description": "Get one style property",
             "custom": true
-        },
-        {
-            "name": "GuiWindowBox",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "title",
-                    "typ": "[*:0]const u8"
-                }
-            ],
-            "returnType": "bool",
-            "description": "Window Box control, shows a window that can be closed",
-            "custom": false
-        },
-        {
-            "name": "GuiGroupBox",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                }
-            ],
-            "returnType": "void",
-            "description": "Group Box control with text name",
-            "custom": false
-        },
-        {
-            "name": "GuiLine",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                }
-            ],
-            "returnType": "void",
-            "description": "Line separator control, could contain text",
-            "custom": false
-        },
-        {
-            "name": "GuiPanel",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                }
-            ],
-            "returnType": "void",
-            "description": "Panel control, useful to group controls",
-            "custom": false
-        },
-        {
-            "name": "GuiTabBar",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*]const [*:0]const u8"
-                },
-                {
-                    "name": "count",
-                    "typ": "i32"
-                },
-                {
-                    "name": "active",
-                    "typ": "?[*]i32"
-                }
-            ],
-            "returnType": "i32",
-            "description": "Tab Bar control, returns TAB to be closed or -1",
-            "custom": false
-        },
-        {
-            "name": "GuiScrollPanel",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "content",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "scroll",
-                    "typ": "?[*]Vector2"
-                }
-            ],
-            "returnType": "Rectangle",
-            "description": "Scroll Panel control",
-            "custom": false
-        },
-        {
-            "name": "GuiLabel",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                }
-            ],
-            "returnType": "void",
-            "description": "Label control, shows text",
-            "custom": false
-        },
-        {
-            "name": "GuiButton",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                }
-            ],
-            "returnType": "bool",
-            "description": "Button control, returns true when clicked",
-            "custom": false
-        },
-        {
-            "name": "GuiLabelButton",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                }
-            ],
-            "returnType": "bool",
-            "description": "Label button control, show true when clicked",
-            "custom": false
-        },
-        {
-            "name": "GuiToggle",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "active",
-                    "typ": "bool"
-                }
-            ],
-            "returnType": "bool",
-            "description": "Toggle Button control, returns true when active",
-            "custom": false
-        },
-        {
-            "name": "GuiToggleGroup",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "active",
-                    "typ": "i32"
-                }
-            ],
-            "returnType": "i32",
-            "description": "Toggle Group control, returns active toggle index",
-            "custom": false
-        },
-        {
-            "name": "GuiCheckBox",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "checked",
-                    "typ": "bool"
-                }
-            ],
-            "returnType": "bool",
-            "description": "Check Box control, returns true when active",
-            "custom": false
-        },
-        {
-            "name": "GuiComboBox",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "active",
-                    "typ": "i32"
-                }
-            ],
-            "returnType": "i32",
-            "description": "Combo Box control, returns selected item index",
-            "custom": false
-        },
-        {
-            "name": "GuiDropdownBox",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "active",
-                    "typ": "?*i32"
-                },
-                {
-                    "name": "editMode",
-                    "typ": "bool"
-                }
-            ],
-            "returnType": "bool",
-            "description": "Dropdown Box control, returns selected item",
-            "custom": true
-        },
-        {
-            "name": "GuiSpinner",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "value",
-                    "typ": "*i32"
-                },
-                {
-                    "name": "minValue",
-                    "typ": "i32"
-                },
-                {
-                    "name": "maxValue",
-                    "typ": "i32"
-                },
-                {
-                    "name": "editMode",
-                    "typ": "bool"
-                }
-            ],
-            "returnType": "bool",
-            "description": "Spinner control, returns selected value",
-            "custom": true
-        },
-        {
-            "name": "GuiValueBox",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "value",
-                    "typ": "*i32"
-                },
-                {
-                    "name": "minValue",
-                    "typ": "i32"
-                },
-                {
-                    "name": "maxValue",
-                    "typ": "i32"
-                },
-                {
-                    "name": "editMode",
-                    "typ": "bool"
-                }
-            ],
-            "returnType": "bool",
-            "description": "Value Box control, updates input text with numbers",
-            "custom": true
-        },
-        {
-            "name": "GuiTextBox",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "?[*]u8"
-                },
-                {
-                    "name": "textSize",
-                    "typ": "i32"
-                },
-                {
-                    "name": "editMode",
-                    "typ": "bool"
-                }
-            ],
-            "returnType": "bool",
-            "description": "Text Box control, updates input text",
-            "custom": false
-        },
-        {
-            "name": "GuiSlider",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "textLeft",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "textRight",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "value",
-                    "typ": "f32"
-                },
-                {
-                    "name": "minValue",
-                    "typ": "f32"
-                },
-                {
-                    "name": "maxValue",
-                    "typ": "f32"
-                }
-            ],
-            "returnType": "f32",
-            "description": "Slider control, returns selected value",
-            "custom": false
-        },
-        {
-            "name": "GuiSliderBar",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "textLeft",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "textRight",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "value",
-                    "typ": "f32"
-                },
-                {
-                    "name": "minValue",
-                    "typ": "f32"
-                },
-                {
-                    "name": "maxValue",
-                    "typ": "f32"
-                }
-            ],
-            "returnType": "f32",
-            "description": "Slider Bar control, returns selected value",
-            "custom": false
-        },
-        {
-            "name": "GuiProgressBar",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "textLeft",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "textRight",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "value",
-                    "typ": "f32"
-                },
-                {
-                    "name": "minValue",
-                    "typ": "f32"
-                },
-                {
-                    "name": "maxValue",
-                    "typ": "f32"
-                }
-            ],
-            "returnType": "f32",
-            "description": "Progress Bar control, shows current progress value",
-            "custom": false
-        },
-        {
-            "name": "GuiStatusBar",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                }
-            ],
-            "returnType": "void",
-            "description": "Status Bar control, shows info text",
-            "custom": false
-        },
-        {
-            "name": "GuiDummyRec",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                }
-            ],
-            "returnType": "void",
-            "description": "Dummy control for placeholders",
-            "custom": false
-        },
-        {
-            "name": "GuiGrid",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "spacing",
-                    "typ": "f32"
-                },
-                {
-                    "name": "subdivs",
-                    "typ": "i32"
-                }
-            ],
-            "returnType": "Vector2",
-            "description": "Grid control, returns mouse cell position",
-            "custom": false
-        },
-        {
-            "name": "GuiListView",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "scrollIndex",
-                    "typ": "?*i32"
-                },
-                {
-                    "name": "active",
-                    "typ": "i32"
-                }
-            ],
-            "returnType": "i32",
-            "description": "List View control, returns selected list item index",
-            "custom": true
-        },
-        {
-            "name": "GuiListViewEx",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*]const [*:0]const u8"
-                },
-                {
-                    "name": "count",
-                    "typ": "i32"
-                },
-                {
-                    "name": "focus",
-                    "typ": "?[*]i32"
-                },
-                {
-                    "name": "scrollIndex",
-                    "typ": "?[*]i32"
-                },
-                {
-                    "name": "active",
-                    "typ": "i32"
-                }
-            ],
-            "returnType": "i32",
-            "description": "List View with extended parameters",
-            "custom": false
-        },
-        {
-            "name": "GuiMessageBox",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "title",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "message",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "buttons",
-                    "typ": "[*:0]const u8"
-                }
-            ],
-            "returnType": "i32",
-            "description": "Message Box control, displays a message",
-            "custom": false
-        },
-        {
-            "name": "GuiTextInputBox",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "title",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "message",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "buttons",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "text",
-                    "typ": "?[*]u8"
-                },
-                {
-                    "name": "textMaxSize",
-                    "typ": "i32"
-                },
-                {
-                    "name": "secretViewActive",
-                    "typ": "?[*]i32"
-                }
-            ],
-            "returnType": "i32",
-            "description": "Text Input Box control, ask for text, supports secret",
-            "custom": false
-        },
-        {
-            "name": "GuiColorPicker",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "color",
-                    "typ": "Color"
-                }
-            ],
-            "returnType": "Color",
-            "description": "Color Picker control (multiple color controls)",
-            "custom": false
-        },
-        {
-            "name": "GuiColorPanel",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "color",
-                    "typ": "Color"
-                }
-            ],
-            "returnType": "Color",
-            "description": "Color Panel control",
-            "custom": false
-        },
-        {
-            "name": "GuiColorBarAlpha",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "alpha",
-                    "typ": "f32"
-                }
-            ],
-            "returnType": "f32",
-            "description": "Color Bar Alpha control",
-            "custom": false
-        },
-        {
-            "name": "GuiColorBarHue",
-            "params": [
-                {
-                    "name": "bounds",
-                    "typ": "Rectangle"
-                },
-                {
-                    "name": "text",
-                    "typ": "[*:0]const u8"
-                },
-                {
-                    "name": "value",
-                    "typ": "f32"
-                }
-            ],
-            "returnType": "f32",
-            "description": "Color Bar Hue control",
-            "custom": false
         },
         {
             "name": "GuiLoadStyle",
@@ -897,7 +197,7 @@
         {
             "name": "GuiGetIcons",
             "params": [],
-            "returnType": "?[*]u32",
+            "returnType": "*u32",
             "description": "Get raygui icons data pointer",
             "custom": false
         },
@@ -943,6 +243,714 @@
             ],
             "returnType": "void",
             "description": "Draw icon using pixel size at specified position",
+            "custom": false
+        },
+        {
+            "name": "GuiWindowBox",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "title",
+                    "typ": "[*:0]const u8"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Window Box control, shows a window that can be closed",
+            "custom": false
+        },
+        {
+            "name": "GuiGroupBox",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Group Box control with text name",
+            "custom": false
+        },
+        {
+            "name": "GuiLine",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Line separator control, could contain text",
+            "custom": false
+        },
+        {
+            "name": "GuiPanel",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Panel control, useful to group controls",
+            "custom": false
+        },
+        {
+            "name": "GuiTabBar",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*]const [*:0]const u8"
+                },
+                {
+                    "name": "count",
+                    "typ": "i32"
+                },
+                {
+                    "name": "active",
+                    "typ": "*i32"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Tab Bar control, returns TAB to be closed or -1",
+            "custom": false
+        },
+        {
+            "name": "GuiScrollPanel",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "content",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "scroll",
+                    "typ": "*Vector2"
+                },
+                {
+                    "name": "view",
+                    "typ": "*Rectangle"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Scroll Panel control",
+            "custom": false
+        },
+        {
+            "name": "GuiLabel",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Label control, shows text",
+            "custom": false
+        },
+        {
+            "name": "GuiButton",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Button control, returns true when clicked",
+            "custom": false
+        },
+        {
+            "name": "GuiLabelButton",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Label button control, show true when clicked",
+            "custom": false
+        },
+        {
+            "name": "GuiToggle",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "active",
+                    "typ": "*bool"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Toggle Button control, returns true when active",
+            "custom": false
+        },
+        {
+            "name": "GuiToggleGroup",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "active",
+                    "typ": "*i32"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Toggle Group control, returns active toggle index",
+            "custom": false
+        },
+        {
+            "name": "GuiCheckBox",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "checked",
+                    "typ": "*bool"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Check Box control, returns true when active",
+            "custom": false
+        },
+        {
+            "name": "GuiComboBox",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "active",
+                    "typ": "*i32"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Combo Box control, returns selected item index",
+            "custom": false
+        },
+        {
+            "name": "GuiDropdownBox",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "active",
+                    "typ": "*i32"
+                },
+                {
+                    "name": "editMode",
+                    "typ": "bool"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Dropdown Box control, returns selected item",
+            "custom": false
+        },
+        {
+            "name": "GuiSpinner",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "value",
+                    "typ": "*i32"
+                },
+                {
+                    "name": "minValue",
+                    "typ": "i32"
+                },
+                {
+                    "name": "maxValue",
+                    "typ": "i32"
+                },
+                {
+                    "name": "editMode",
+                    "typ": "bool"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Spinner control, returns selected value",
+            "custom": false
+        },
+        {
+            "name": "GuiValueBox",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "value",
+                    "typ": "*i32"
+                },
+                {
+                    "name": "minValue",
+                    "typ": "i32"
+                },
+                {
+                    "name": "maxValue",
+                    "typ": "i32"
+                },
+                {
+                    "name": "editMode",
+                    "typ": "bool"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Value Box control, updates input text with numbers",
+            "custom": false
+        },
+        {
+            "name": "GuiTextBox",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "?[*:0]u8"
+                },
+                {
+                    "name": "textSize",
+                    "typ": "i32"
+                },
+                {
+                    "name": "editMode",
+                    "typ": "bool"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Text Box control, updates input text",
+            "custom": false
+        },
+        {
+            "name": "GuiSlider",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "textLeft",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "textRight",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "value",
+                    "typ": "*f32"
+                },
+                {
+                    "name": "minValue",
+                    "typ": "f32"
+                },
+                {
+                    "name": "maxValue",
+                    "typ": "f32"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Slider control, returns selected value",
+            "custom": false
+        },
+        {
+            "name": "GuiSliderBar",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "textLeft",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "textRight",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "value",
+                    "typ": "*f32"
+                },
+                {
+                    "name": "minValue",
+                    "typ": "f32"
+                },
+                {
+                    "name": "maxValue",
+                    "typ": "f32"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Slider Bar control, returns selected value",
+            "custom": false
+        },
+        {
+            "name": "GuiProgressBar",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "textLeft",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "textRight",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "value",
+                    "typ": "*f32"
+                },
+                {
+                    "name": "minValue",
+                    "typ": "f32"
+                },
+                {
+                    "name": "maxValue",
+                    "typ": "f32"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Progress Bar control, shows current progress value",
+            "custom": false
+        },
+        {
+            "name": "GuiStatusBar",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Status Bar control, shows info text",
+            "custom": false
+        },
+        {
+            "name": "GuiDummyRec",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Dummy control for placeholders",
+            "custom": false
+        },
+        {
+            "name": "GuiGrid",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "spacing",
+                    "typ": "f32"
+                },
+                {
+                    "name": "subdivs",
+                    "typ": "i32"
+                },
+                {
+                    "name": "mouseCell",
+                    "typ": "*Vector2"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Grid control, returns mouse cell position",
+            "custom": false
+        },
+        {
+            "name": "GuiListView",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "scrollIndex",
+                    "typ": "*i32"
+                },
+                {
+                    "name": "active",
+                    "typ": "*i32"
+                }
+            ],
+            "returnType": "i32",
+            "description": "List View control, returns selected list item index",
+            "custom": false
+        },
+        {
+            "name": "GuiListViewEx",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*]const [*:0]const u8"
+                },
+                {
+                    "name": "count",
+                    "typ": "i32"
+                },
+                {
+                    "name": "scrollIndex",
+                    "typ": "*i32"
+                },
+                {
+                    "name": "active",
+                    "typ": "*i32"
+                },
+                {
+                    "name": "focus",
+                    "typ": "*i32"
+                }
+            ],
+            "returnType": "i32",
+            "description": "List View with extended parameters",
+            "custom": false
+        },
+        {
+            "name": "GuiMessageBox",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "title",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "message",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "buttons",
+                    "typ": "[*:0]const u8"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Message Box control, displays a message",
+            "custom": false
+        },
+        {
+            "name": "GuiTextInputBox",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "title",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "message",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "buttons",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "text",
+                    "typ": "?[*:0]u8"
+                },
+                {
+                    "name": "textMaxSize",
+                    "typ": "i32"
+                },
+                {
+                    "name": "secretViewActive",
+                    "typ": "*bool"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Text Input Box control, ask for text, supports secret",
+            "custom": false
+        },
+        {
+            "name": "GuiColorPicker",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "color",
+                    "typ": "*Color"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Color Picker control (multiple color controls)",
+            "custom": false
+        },
+        {
+            "name": "GuiColorPanel",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "color",
+                    "typ": "*Color"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Color Panel control",
+            "custom": false
+        },
+        {
+            "name": "GuiColorBarAlpha",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "alpha",
+                    "typ": "*f32"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Color Bar Alpha control",
+            "custom": false
+        },
+        {
+            "name": "GuiColorBarHue",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "value",
+                    "typ": "*f32"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Color Bar Hue control",
             "custom": false
         }
     ],
@@ -2528,7 +2536,7 @@
                     "description": ""
                 },
                 {
-                    "name": "ICON_219",
+                    "name": "ICON_SAND_TIMER",
                     "value": 219,
                     "description": ""
                 },
@@ -2932,12 +2940,12 @@
                 },
                 {
                     "name": "recs",
-                    "typ": "?[*]Rectangle",
+                    "typ": "*Rectangle",
                     "description": "Rectangles in texture for the glyphs"
                 },
                 {
                     "name": "glyphs",
-                    "typ": "?[*]GlyphInfo",
+                    "typ": "*GlyphInfo",
                     "description": "Glyphs info data"
                 }
             ],
@@ -2971,14 +2979,14 @@
         {
             "name": "RAYGUI_VERSION_MAJOR",
             "typ": "i32",
-            "value": "3",
+            "value": "4",
             "description": "",
             "custom": false
         },
         {
             "name": "RAYGUI_VERSION_MINOR",
             "typ": "i32",
-            "value": "5",
+            "value": "0",
             "description": "",
             "custom": false
         },
@@ -2992,7 +3000,7 @@
         {
             "name": "RAYGUI_VERSION",
             "typ": "[]const u8",
-            "value": "\"3.5\"",
+            "value": "\"4.0-dev\"",
             "description": "",
             "custom": false
         },
@@ -3151,16 +3159,16 @@
             "custom": false
         },
         {
-            "name": "AUTO_CURSOR_COOLDOWN",
+            "name": "RAYGUI_TEXTBOX_AUTO_CURSOR_COOLDOWN",
             "typ": "i32",
             "value": "40",
             "description": "Frames to wait for autocursor movement",
             "custom": false
         },
         {
-            "name": "AUTO_CURSOR_DELAY",
+            "name": "RAYGUI_TEXTBOX_AUTO_CURSOR_DELAY",
             "typ": "i32",
-            "value": "3",
+            "value": "1",
             "description": "Frames delay for autocursor movement",
             "custom": false
         },
@@ -3216,7 +3224,7 @@
         {
             "name": "RAYGUI_GRID_ALPHA",
             "typ": "f32",
-            "value": "0.15000000596046448",
+            "value": "0.15",
             "description": "",
             "custom": false
         },
