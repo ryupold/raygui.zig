@@ -73,8 +73,7 @@ const Injections = struct {
                     const s = line["pub const ".len + startIndex .. endIndex];
                     try symbols.append(s);
                     std.log.debug("inject symbol: {s}", .{s});
-                }
-                else if (std.mem.indexOf(u8, line, " = raylib.")) |endIndex| {
+                } else if (std.mem.indexOf(u8, line, " = raylib.")) |endIndex| {
                     const s = line["pub const ".len + startIndex .. endIndex];
                     try symbols.append(s);
                     std.log.debug("inject symbol: {s}", .{s});

@@ -16,7 +16,7 @@ pub fn textAlignPixelOffset(h: i32) i32 {
 }
 
 fn bitCheck(a: u32, b: u32) bool {
-    const r = @shlWithOverflow(1, @truncate(u5, b));
+    const r = @shlWithOverflow(1, @as(u5, @truncate(b)));
     return (a & (r[0])) != 0;
 }
 
@@ -28,16 +28,16 @@ pub fn GuiDrawIcon(
     pixelSize: i32,
     color: raylib.Color,
 ) void {
-    const iconId = @enumToInt(icon);
+    const iconId = @intFromEnum(icon);
 
     var i: i32 = 0;
     var y: i32 = 0;
     while (i < RICON_SIZE * RICON_SIZE / 32) : (i += 1) {
         var k: u32 = 0;
         while (k < 32) : (k += 1) {
-            if (bitCheck(raygui.guiIcons[@intCast(usize, iconId * RICON_DATA_ELEMENTS + i)], k)) {
+            if (bitCheck(raygui.guiIcons[@as(usize, @intCast(iconId * RICON_DATA_ELEMENTS + i))], k)) {
                 _ = raylib.DrawRectangle(
-                    posX + @intCast(i32, k % RICON_SIZE) * pixelSize,
+                    posX + @as(i32, @intCast(k % RICON_SIZE)) * pixelSize,
                     posY + y * pixelSize,
                     pixelSize,
                     pixelSize,
@@ -57,8 +57,8 @@ pub fn GuiDrawIconButton(bounds: raylib.Rectangle, icon: GuiIconName, iconTint: 
     const pressed = GuiButton(bounds, "");
     GuiDrawIcon(
         icon,
-        @floatToInt(i32, bounds.x + bounds.width / 2 - @intToFloat(f32, RICON_SIZE) / 2),
-        @floatToInt(i32, bounds.y + (bounds.height / 2) - @intToFloat(f32, RICON_SIZE) / 2),
+        @as(i32, @intFromFloat(bounds.x + bounds.width / 2 - @as(f32, @floatFromInt(RICON_SIZE)) / 2)),
+        @as(i32, @intFromFloat(bounds.y + (bounds.height / 2) - @as(f32, @floatFromInt(RICON_SIZE)) / 2)),
         1,
         iconTint,
     );
