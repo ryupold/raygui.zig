@@ -952,6 +952,46 @@
             "returnType": "i32",
             "description": "Color Bar Hue control",
             "custom": false
+        },
+        {
+            "name": "GuiColorPickerHSV",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "colorHsv",
+                    "typ": "*Vector3"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Color Picker control that avoids conversion to RGB on each call (multiple color controls)",
+            "custom": false
+        },
+        {
+            "name": "GuiColorPanelHSV",
+            "params": [
+                {
+                    "name": "bounds",
+                    "typ": "Rectangle"
+                },
+                {
+                    "name": "text",
+                    "typ": "[*:0]const u8"
+                },
+                {
+                    "name": "colorHsv",
+                    "typ": "*Vector3"
+                }
+            ],
+            "returnType": "i32",
+            "description": "Color Panel control that returns HSV color value, used by GuiColorPickerHSV()",
+            "custom": false
         }
     ],
     "enums": [
@@ -1200,6 +1240,11 @@
                     "name": "BACKGROUND_COLOR",
                     "value": 19,
                     "description": "Background color"
+                },
+                {
+                    "name": "TEXT_LINE_SPACING",
+                    "value": 20,
+                    "description": "Text spacing between lines"
                 }
             ],
             "description": "DEFAULT extended properties",

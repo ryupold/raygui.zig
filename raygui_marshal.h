@@ -156,3 +156,9 @@ int mGuiColorBarAlpha(Rectangle *bounds, const char * text, float * alpha);
 // Color Bar Hue control
 int mGuiColorBarHue(Rectangle *bounds, const char * text, float * value);
 
+// Color Picker control that avoids conversion to RGB on each call (multiple color controls)
+int mGuiColorPickerHSV(Rectangle *bounds, const char * text, Vector3 * colorHsv);
+
+// Color Panel control that returns HSV color value, used by GuiColorPickerHSV()
+int mGuiColorPanelHSV(Rectangle *bounds, const char * text, Vector3 * colorHsv);
+

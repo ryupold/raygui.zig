@@ -684,6 +684,32 @@ pub fn GuiColorBarHue(
     );
 }
 
+/// Color Picker control that avoids conversion to RGB on each call (multiple color controls)
+pub fn GuiColorPickerHSV(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+    colorHsv: *Vector3,
+) i32 {
+    return raygui.mGuiColorPickerHSV(
+        @as([*c]raygui.Rectangle, @ptrFromInt(@intFromPtr(&bounds))),
+        @as([*c]const u8, @ptrFromInt(@intFromPtr(text))),
+        @as([*c]raygui.Vector3, @ptrFromInt(@intFromPtr(colorHsv))),
+    );
+}
+
+/// Color Panel control that returns HSV color value, used by GuiColorPickerHSV()
+pub fn GuiColorPanelHSV(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+    colorHsv: *Vector3,
+) i32 {
+    return raygui.mGuiColorPanelHSV(
+        @as([*c]raygui.Rectangle, @ptrFromInt(@intFromPtr(&bounds))),
+        @as([*c]const u8, @ptrFromInt(@intFromPtr(text))),
+        @as([*c]raygui.Vector3, @ptrFromInt(@intFromPtr(colorHsv))),
+    );
+}
+
 /// Vector3 type                 // -- ConvertHSVtoRGB(), ConvertRGBtoHSV()
 pub const Vector3 = extern struct {
     ///
@@ -866,6 +892,8 @@ pub const GuiDefaultProperty = enum(i32) {
     LINE_COLOR = 18,
     /// Background color
     BACKGROUND_COLOR = 19,
+    /// Text spacing between lines
+    TEXT_LINE_SPACING = 20,
 };
 
 /// Toggle/ToggleGroup

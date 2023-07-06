@@ -260,3 +260,13 @@ int mGuiColorBarHue(Rectangle *bounds, const char * text, float * value)
 	return GuiColorBarHue(*bounds, text, value);
 }
 
+int mGuiColorPickerHSV(Rectangle *bounds, const char * text, Vector3 * colorHsv)
+{
+	return GuiColorPickerHSV(*bounds, text, colorHsv);
+}
+
+int mGuiColorPanelHSV(Rectangle *bounds, const char * text, Vector3 * colorHsv)
+{
+	return GuiColorPanelHSV(*bounds, text, colorHsv);
+}
+
