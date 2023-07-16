@@ -14,12 +14,26 @@ git submodule add https://github.com/ryupold/raygui.zig raygui
 git submodule raygui --init --recursive
 ```
 
-The bindings have been prebuilt so you just need to import raygui.zig
+The bindings have been prebuilt so you just need to add raylib as module
 
-Examples assumes that you also have [raylib.zig](https://github.com/ryupold/raylib.zig) checked out next to it.
+build.zig:
 ```zig
-const raylib = @import("raylib/raylib.zig");
-const raygui = @import("raygui/raygui.zig");
+const raylib = @import("path/to/raylib.zig/build.zig");
+const raygui = @import("path/to/raygui.zig/build.zig");
+
+pub fn build(b: *std.Build) !void {
+    const target = b.standardTargetOptions(.{});
+    const mode = b.standardOptimizeOption(.{});
+    const exe = ...;
+    raylib.addTo(b, exe, target, mode);
+    raygui.addTo(b, exe, target, mode);
+}
+```
+
+and import in main.zig:
+```zig
+const raylib = @import("raylib");
+const raygui = @import("raygui");
 
 pub fn main() void {
     raylib.InitWindow(800, 800, "hello world!");
@@ -41,17 +55,11 @@ pub fn main() void {
     }
 }
 ```
-> Note: you only need the files `raygui.zig`, `raygui_marshal.h` and `raygui_marshal.c` for this to work
+
 > See `build.zig` in [examples-raylib.zig](https://github.com/ryupold/examples-raylib.zig) for how to build.
 
-## building
-
-Builds for Windows, Linux and macOS can just include the C files during normal compilation.
-```zig
-exe.addIncludeDir("raygui/");
-exe.addCSourceFile("raygui/raygui_marshal.c", &.{});
-```
-
+> Note: you only need the files `raygui.zig`, `raygui_marshal.h` and `raygui_marshal.c` for this to work
+> 
 This weird workaround with `raygui_marshal.h/raygui_marshal.c` I actually had to make for Webassembly builds to work, because passing structs as function parameters or returning them cannot be done on the Zig side somehow. If I try it, I get a runtime error "index out of bounds". This happens only in WebAssembly builds. So `raygui_marshal.c` must be compiled with `emcc`. See [build.zig](https://github.com/ryupold/examples-raylib.zig/blob/main/build.zig) in the examples.
 
 ## custom definitions
