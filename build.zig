@@ -77,10 +77,10 @@ pub fn addTo(b: *std.Build, lib: *std.build.LibExeObjStep, target: std.zig.Cross
                 .{ .name = "raylib", .module = raylib },
             },
         });
-        lib.addIncludePath(dir_raygui);
-        lib.addIncludePath(cwd);
+        lib.addIncludePath(.{ .path = dir_raygui });
+        lib.addIncludePath(.{ .path = cwd });
         lib.linkLibC();
-        lib.addCSourceFile(cwd ++ sep ++ "raygui_marshal.c", &.{"-DRAYGUI_IMPLEMENTATION"});
+        lib.addCSourceFile(.{ .file = .{ .path = cwd ++ sep ++ "raygui_marshal.c" }, .flags = &.{"-DRAYGUI_IMPLEMENTATION"} });
     } else {
         std.debug.panic("lib needs to have 'raylib', 'raylib.zig' or 'raylib-zig' as module dependency", .{});
     }
