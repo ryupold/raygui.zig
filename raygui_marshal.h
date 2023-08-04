@@ -16,7 +16,7 @@ void mGuiUnlock(void);
 bool mGuiIsLocked(void);
 
 // Set gui controls alpha (global state), alpha goes from 0.0f to 1.0f
-void mGuiFade(float alpha);
+void mGuiSetAlpha(float alpha);
 
 // Set gui state (global state)
 void mGuiSetState(int state);

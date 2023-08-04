@@ -25,9 +25,9 @@ bool mGuiIsLocked(void)
 	return GuiIsLocked();
 }
 
-void mGuiFade(float alpha)
+void mGuiSetAlpha(float alpha)
 {
-	GuiFade(alpha);
+	GuiSetAlpha(alpha);
 }
 
 void mGuiSetState(int state)

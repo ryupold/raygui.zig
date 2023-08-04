@@ -91,10 +91,10 @@ pub fn GuiIsLocked() bool {
 }
 
 /// Set gui controls alpha (global state), alpha goes from 0.0f to 1.0f
-pub fn GuiFade(
+pub fn GuiSetAlpha(
     alpha: f32,
 ) void {
-    raygui.mGuiFade(
+    raygui.mGuiSetAlpha(
         alpha,
     );
 }
@@ -966,6 +966,8 @@ pub const GuiTextBoxProperty = enum(i32) {
     TEXT_MULTILINE = 19,
     /// TextBox wrap mode for multiline: 0-NO_WRAP, 1-CHAR_WRAP, 2-WORD_WRAP
     TEXT_WRAP_MODE = 20,
+    /// TextBox is readonly, no editable
+    TEXT_READONLY = 21,
 };
 
 /// Spinner
