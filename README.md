@@ -11,7 +11,7 @@ Thats what I do until there is an official package manager for Zig.
 ```sh
 cd $YOUR_SRC_FOLDER
 git submodule add https://github.com/ryupold/raygui.zig raygui
-git submodule raygui --init --recursive
+git submodule update --init --recursive
 ```
 
 The bindings have been prebuilt so you just need to add raylib as module
