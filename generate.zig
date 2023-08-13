@@ -159,8 +159,8 @@ fn writeFunctions(
                 try file.writeAll(
                     try allocPrint(
                         allocator,
-                        ") [*]const {s} {{\n",
-                        .{stripType(func.returnType)},
+                        ") {s} {{\n",
+                        .{func.returnType},
                     ),
                 );
             }

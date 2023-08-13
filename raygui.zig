@@ -216,7 +216,7 @@ pub fn GuiSetIconScale(
 }
 
 /// Get raygui icons data pointer
-pub fn GuiGetIcons() [*]const u32 {
+pub fn GuiGetIcons() *u32 {
     return @as(
         *u32,
         @ptrCast(raygui.mGuiGetIcons()),
@@ -227,7 +227,7 @@ pub fn GuiGetIcons() [*]const u32 {
 pub fn GuiLoadIcons(
     fileName: [*:0]const u8,
     loadIconsName: bool,
-) [*]const [*:0]u8 {
+) [*][*:0]u8 {
     return @as(
         [*][*:0]u8,
         @ptrCast(raygui.mGuiLoadIcons(
