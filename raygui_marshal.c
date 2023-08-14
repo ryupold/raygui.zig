@@ -160,6 +160,11 @@ int mGuiToggleGroup(Rectangle *bounds, const char * text, int * active)
 	return GuiToggleGroup(*bounds, text, active);
 }
 
+int mGuiToggleSlider(Rectangle *bounds, const char * text, int * active)
+{
+	return GuiToggleSlider(*bounds, text, active);
+}
+
 int mGuiCheckBox(Rectangle *bounds, const char * text, bool * checked)
 {
 	return GuiCheckBox(*bounds, text, checked);

@@ -372,6 +372,19 @@ pub fn GuiToggleGroup(
     );
 }
 
+/// Toggle Slider control, returns true when clicked
+pub fn GuiToggleSlider(
+    bounds: Rectangle,
+    text: [*:0]const u8,
+    active: *i32,
+) i32 {
+    return raygui.mGuiToggleSlider(
+        @as([*c]raygui.Rectangle, @ptrFromInt(@intFromPtr(&bounds))),
+        @as([*c]const u8, @ptrFromInt(@intFromPtr(text))),
+        @as([*c]i32, @ptrCast(active)),
+    );
+}
+
 /// Check Box control, returns true when active
 pub fn GuiCheckBox(
     bounds: Rectangle,

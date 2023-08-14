@@ -96,6 +96,9 @@ int mGuiToggle(Rectangle *bounds, const char * text, bool * active);
 // Toggle Group control, returns active toggle index
 int mGuiToggleGroup(Rectangle *bounds, const char * text, int * active);
 
+// Toggle Slider control, returns true when clicked
+int mGuiToggleSlider(Rectangle *bounds, const char * text, int * active);
+
 // Check Box control, returns true when active
 int mGuiCheckBox(Rectangle *bounds, const char * text, bool * checked);
 

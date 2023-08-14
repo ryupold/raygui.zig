@@ -450,6 +450,26 @@
       "custom": false
     },
     {
+      "name": "GuiToggleSlider",
+      "params": [
+        {
+          "name": "bounds",
+          "typ": "Rectangle"
+        },
+        {
+          "name": "text",
+          "typ": "[*:0]const u8"
+        },
+        {
+          "name": "active",
+          "typ": "*i32"
+        }
+      ],
+      "returnType": "i32",
+      "description": "Toggle Slider control, returns true when clicked",
+      "custom": false
+    },
+    {
       "name": "GuiCheckBox",
       "params": [
         {
