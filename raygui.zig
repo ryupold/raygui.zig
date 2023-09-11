@@ -791,14 +791,30 @@ pub const Font = extern struct {
     glyphs: *GlyphInfo,
 };
 
-/// Style property
+/// NOTE: Used when exporting style as code for convenience
 pub const GuiStyleProp = extern struct {
-    ///
+    /// Control identifier
     controlId: u16,
-    ///
+    /// Property identifier
     propertyId: u16,
+    /// Property value
+    propertyValue: i32,
+};
+
+/// NOTE: Text style is defined by control
+pub const GuiTextStyle = extern struct {
     ///
-    propertyValue: u32,
+    size: u32,
+    ///
+    charSpacing: i32,
+    ///
+    lineSpacing: i32,
+    ///
+    alignmentH: i32,
+    ///
+    alignmentV: i32,
+    ///
+    padding: i32,
 };
 
 /// Gui control state
@@ -821,6 +837,26 @@ pub const GuiTextAlignment = enum(i32) {
     TEXT_ALIGN_CENTER = 1,
     ///
     TEXT_ALIGN_RIGHT = 2,
+};
+
+/// Gui control text alignment vertical
+pub const GuiTextAlignmentVertical = enum(i32) {
+    ///
+    TEXT_ALIGN_TOP = 0,
+    ///
+    TEXT_ALIGN_MIDDLE = 1,
+    ///
+    TEXT_ALIGN_BOTTOM = 2,
+};
+
+/// Gui control text wrap mode
+pub const GuiTextWrapMode = enum(i32) {
+    ///
+    TEXT_WRAP_NONE = 0,
+    ///
+    TEXT_WRAP_CHAR = 1,
+    ///
+    TEXT_WRAP_WORD = 2,
 };
 
 /// Gui controls
@@ -861,38 +897,36 @@ pub const GuiControl = enum(i32) {
 
 /// Gui base properties for every control
 pub const GuiControlProperty = enum(i32) {
-    ///
+    /// Control border color in STATE_NORMAL
     BORDER_COLOR_NORMAL = 0,
-    ///
+    /// Control base color in STATE_NORMAL
     BASE_COLOR_NORMAL = 1,
-    ///
+    /// Control text color in STATE_NORMAL
     TEXT_COLOR_NORMAL = 2,
-    ///
+    /// Control border color in STATE_FOCUSED
     BORDER_COLOR_FOCUSED = 3,
-    ///
+    /// Control base color in STATE_FOCUSED
     BASE_COLOR_FOCUSED = 4,
-    ///
+    /// Control text color in STATE_FOCUSED
     TEXT_COLOR_FOCUSED = 5,
-    ///
+    /// Control border color in STATE_PRESSED
     BORDER_COLOR_PRESSED = 6,
-    ///
+    /// Control base color in STATE_PRESSED
     BASE_COLOR_PRESSED = 7,
-    ///
+    /// Control text color in STATE_PRESSED
     TEXT_COLOR_PRESSED = 8,
-    ///
+    /// Control border color in STATE_DISABLED
     BORDER_COLOR_DISABLED = 9,
-    ///
+    /// Control base color in STATE_DISABLED
     BASE_COLOR_DISABLED = 10,
-    ///
+    /// Control text color in STATE_DISABLED
     TEXT_COLOR_DISABLED = 11,
-    ///
+    /// Control border size, 0 for no border
     BORDER_WIDTH = 12,
-    ///
+    /// Control text padding, not considering border
     TEXT_PADDING = 13,
-    ///
+    /// Control text horizontal alignment inside control text bound (after border and padding)
     TEXT_ALIGNMENT = 14,
-    ///
-    RESERVED = 15,
 };
 
 /// DEFAULT extended properties
@@ -907,6 +941,10 @@ pub const GuiDefaultProperty = enum(i32) {
     BACKGROUND_COLOR = 19,
     /// Text spacing between lines
     TEXT_LINE_SPACING = 20,
+    /// Text vertical alignment inside text bounds (after border and padding)
+    TEXT_ALIGNMENT_VERTICAL = 21,
+    /// Text wrap-mode inside text bounds
+    TEXT_WRAP_MODE = 22,
 };
 
 /// Toggle/ToggleGroup
@@ -931,17 +969,17 @@ pub const GuiProgressBarProperty = enum(i32) {
 
 /// ScrollBar
 pub const GuiScrollBarProperty = enum(i32) {
-    ///
+    /// ScrollBar arrows size
     ARROWS_SIZE = 16,
-    ///
+    /// ScrollBar arrows visible
     ARROWS_VISIBLE = 17,
-    /// (SLIDERBAR, SLIDER_PADDING)
+    /// ScrollBar slider internal padding
     SCROLL_SLIDER_PADDING = 18,
-    ///
+    /// ScrollBar slider size
     SCROLL_SLIDER_SIZE = 19,
-    ///
+    /// ScrollBar scroll padding from arrows
     SCROLL_PADDING = 20,
-    ///
+    /// ScrollBar scrolling speed
     SCROLL_SPEED = 21,
 };
 
@@ -969,18 +1007,8 @@ pub const GuiDropdownBoxProperty = enum(i32) {
 
 /// TextBox/TextBoxMulti/ValueBox/Spinner
 pub const GuiTextBoxProperty = enum(i32) {
-    /// TextBox/TextBoxMulti/ValueBox/Spinner inner text padding
-    TEXT_INNER_PADDING = 16,
-    /// TextBoxMulti lines separation
-    TEXT_LINES_SPACING = 17,
-    /// TextBoxMulti vertical alignment: 0-CENTERED, 1-UP, 2-DOWN
-    TEXT_ALIGNMENT_VERTICAL = 18,
-    /// TextBox supports multiple lines
-    TEXT_MULTILINE = 19,
-    /// TextBox wrap mode for multiline: 0-NO_WRAP, 1-CHAR_WRAP, 2-WORD_WRAP
-    TEXT_WRAP_MODE = 20,
-    /// TextBox is readonly, no editable
-    TEXT_READONLY = 21,
+    /// TextBox in read-only mode: 0-text editable, 1-text no-editable
+    TEXT_READONLY = 16,
 };
 
 /// Spinner
@@ -999,7 +1027,7 @@ pub const GuiListViewProperty = enum(i32) {
     LIST_ITEMS_SPACING = 17,
     /// ListView scrollbar size (usually width)
     SCROLLBAR_WIDTH = 18,
-    /// ListView scrollbar side (0-left, 1-right)
+    /// ListView scrollbar side (0-SCROLLBAR_LEFT_SIDE, 1-SCROLLBAR_RIGHT_SIDE)
     SCROLLBAR_SIDE = 19,
 };
 
@@ -1543,7 +1571,7 @@ pub const RAYGUI_VERSION_MINOR: i32 = 0;
 pub const RAYGUI_VERSION_PATCH: i32 = 0;
 
 ///
-pub const RAYGUI_VERSION: []const u8 = "4.0-dev";
+pub const RAYGUI_VERSION: []const u8 = "4.0";
 
 ///
 pub const SCROLLBAR_LEFT_SIDE: i32 = 0;
@@ -1560,10 +1588,10 @@ pub const RAYGUI_ICON_MAX_ICONS: i32 = 256;
 /// Maximum length of icon name id
 pub const RAYGUI_ICON_MAX_NAME_LENGTH: i32 = 32;
 
-/// Maximum number of standard controls
+/// Maximum number of controls
 pub const RAYGUI_MAX_CONTROLS: i32 = 16;
 
-/// Maximum number of standard properties
+/// Maximum number of base properties
 pub const RAYGUI_MAX_PROPS_BASE: i32 = 16;
 
 /// Maximum number of extended properties
@@ -1607,6 +1635,12 @@ pub const RAYGUI_PANEL_BORDER_WIDTH: i32 = 1;
 
 ///
 pub const RAYGUI_TABBAR_ITEM_WIDTH: i32 = 160;
+
+///
+pub const RAYGUI_MIN_SCROLLBAR_WIDTH: i32 = 40;
+
+///
+pub const RAYGUI_MIN_SCROLLBAR_HEIGHT: i32 = 40;
 
 ///
 pub const RAYGUI_TOGGLEGROUP_MAX_ITEMS: i32 = 32;

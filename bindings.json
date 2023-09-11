@@ -1065,6 +1065,50 @@
       "custom": false
     },
     {
+      "name": "GuiTextAlignmentVertical",
+      "values": [
+        {
+          "name": "TEXT_ALIGN_TOP",
+          "value": 0,
+          "description": ""
+        },
+        {
+          "name": "TEXT_ALIGN_MIDDLE",
+          "value": 1,
+          "description": ""
+        },
+        {
+          "name": "TEXT_ALIGN_BOTTOM",
+          "value": 2,
+          "description": ""
+        }
+      ],
+      "description": "Gui control text alignment vertical",
+      "custom": false
+    },
+    {
+      "name": "GuiTextWrapMode",
+      "values": [
+        {
+          "name": "TEXT_WRAP_NONE",
+          "value": 0,
+          "description": ""
+        },
+        {
+          "name": "TEXT_WRAP_CHAR",
+          "value": 1,
+          "description": ""
+        },
+        {
+          "name": "TEXT_WRAP_WORD",
+          "value": 2,
+          "description": ""
+        }
+      ],
+      "description": "Gui control text wrap mode",
+      "custom": false
+    },
+    {
       "name": "GuiControl",
       "values": [
         {
@@ -1157,82 +1201,77 @@
         {
           "name": "BORDER_COLOR_NORMAL",
           "value": 0,
-          "description": ""
+          "description": "Control border color in STATE_NORMAL"
         },
         {
           "name": "BASE_COLOR_NORMAL",
           "value": 1,
-          "description": ""
+          "description": "Control base color in STATE_NORMAL"
         },
         {
           "name": "TEXT_COLOR_NORMAL",
           "value": 2,
-          "description": ""
+          "description": "Control text color in STATE_NORMAL"
         },
         {
           "name": "BORDER_COLOR_FOCUSED",
           "value": 3,
-          "description": ""
+          "description": "Control border color in STATE_FOCUSED"
         },
         {
           "name": "BASE_COLOR_FOCUSED",
           "value": 4,
-          "description": ""
+          "description": "Control base color in STATE_FOCUSED"
         },
         {
           "name": "TEXT_COLOR_FOCUSED",
           "value": 5,
-          "description": ""
+          "description": "Control text color in STATE_FOCUSED"
         },
         {
           "name": "BORDER_COLOR_PRESSED",
           "value": 6,
-          "description": ""
+          "description": "Control border color in STATE_PRESSED"
         },
         {
           "name": "BASE_COLOR_PRESSED",
           "value": 7,
-          "description": ""
+          "description": "Control base color in STATE_PRESSED"
         },
         {
           "name": "TEXT_COLOR_PRESSED",
           "value": 8,
-          "description": ""
+          "description": "Control text color in STATE_PRESSED"
         },
         {
           "name": "BORDER_COLOR_DISABLED",
           "value": 9,
-          "description": ""
+          "description": "Control border color in STATE_DISABLED"
         },
         {
           "name": "BASE_COLOR_DISABLED",
           "value": 10,
-          "description": ""
+          "description": "Control base color in STATE_DISABLED"
         },
         {
           "name": "TEXT_COLOR_DISABLED",
           "value": 11,
-          "description": ""
+          "description": "Control text color in STATE_DISABLED"
         },
         {
           "name": "BORDER_WIDTH",
           "value": 12,
-          "description": ""
+          "description": "Control border size, 0 for no border"
         },
         {
           "name": "TEXT_PADDING",
           "value": 13,
-          "description": ""
+          "description": "Control text padding, not considering border"
         },
         {
           "name": "TEXT_ALIGNMENT",
           "value": 14,
-          "description": ""
-        },
-        {
-          "name": "RESERVED",
-          "value": 15,
-          "description": ""
+          "description": "Control text horizontal alignment inside control text bound (after border and padding)"
         }
       ],
       "description": "Gui base properties for every control",
@@ -1265,6 +1304,16 @@
           "name": "TEXT_LINE_SPACING",
           "value": 20,
           "description": "Text spacing between lines"
+        },
+        {
+          "name": "TEXT_ALIGNMENT_VERTICAL",
+          "value": 21,
+          "description": "Text vertical alignment inside text bounds (after border and padding)"
+        },
+        {
+          "name": "TEXT_WRAP_MODE",
+          "value": 22,
+          "description": "Text wrap-mode inside text bounds"
         }
       ],
       "description": "DEFAULT extended properties",
@@ -1317,32 +1366,32 @@
         {
           "name": "ARROWS_SIZE",
           "value": 16,
-          "description": ""
+          "description": "ScrollBar arrows size"
         },
         {
           "name": "ARROWS_VISIBLE",
           "value": 17,
-          "description": ""
+          "description": "ScrollBar arrows visible"
         },
         {
           "name": "SCROLL_SLIDER_PADDING",
           "value": 18,
-          "description": "(SLIDERBAR, SLIDER_PADDING)"
+          "description": "ScrollBar slider internal padding"
         },
         {
           "name": "SCROLL_SLIDER_SIZE",
           "value": 19,
-          "description": ""
+          "description": "ScrollBar slider size"
         },
         {
           "name": "SCROLL_PADDING",
           "value": 20,
-          "description": ""
+          "description": "ScrollBar scroll padding from arrows"
         },
         {
           "name": "SCROLL_SPEED",
           "value": 21,
-          "description": ""
+          "description": "ScrollBar scrolling speed"
         }
       ],
       "description": "ScrollBar",
@@ -1398,34 +1447,9 @@
       "name": "GuiTextBoxProperty",
       "values": [
         {
-          "name": "TEXT_INNER_PADDING",
-          "value": 16,
-          "description": "TextBox/TextBoxMulti/ValueBox/Spinner inner text padding"
-        },
-        {
-          "name": "TEXT_LINES_SPACING",
-          "value": 17,
-          "description": "TextBoxMulti lines separation"
-        },
-        {
-          "name": "TEXT_ALIGNMENT_VERTICAL",
-          "value": 18,
-          "description": "TextBoxMulti vertical alignment: 0-CENTERED, 1-UP, 2-DOWN"
-        },
-        {
-          "name": "TEXT_MULTILINE",
-          "value": 19,
-          "description": "TextBox supports multiple lines"
-        },
-        {
-          "name": "TEXT_WRAP_MODE",
-          "value": 20,
-          "description": "TextBox wrap mode for multiline: 0-NO_WRAP, 1-CHAR_WRAP, 2-WORD_WRAP"
-        },
-        {
           "name": "TEXT_READONLY",
-          "value": 21,
-          "description": "TextBox is readonly, no editable"
+          "value": 16,
+          "description": "TextBox in read-only mode: 0-text editable, 1-text no-editable"
         }
       ],
       "description": "TextBox/TextBoxMulti/ValueBox/Spinner",
@@ -1469,7 +1493,7 @@
         {
           "name": "SCROLLBAR_SIDE",
           "value": 19,
-          "description": "ListView scrollbar side (0-left, 1-right)"
+          "description": "ListView scrollbar side (0-SCROLLBAR_LEFT_SIDE, 1-SCROLLBAR_RIGHT_SIDE)"
         }
       ],
       "description": "ListView",
@@ -3028,20 +3052,57 @@
         {
           "name": "controlId",
           "typ": "u16",
-          "description": ""
+          "description": "Control identifier"
         },
         {
           "name": "propertyId",
           "typ": "u16",
-          "description": ""
+          "description": "Property identifier"
         },
         {
           "name": "propertyValue",
+          "typ": "i32",
+          "description": "Property value"
+        }
+      ],
+      "description": "NOTE: Used when exporting style as code for convenience",
+      "custom": false
+    },
+    {
+      "name": "GuiTextStyle",
+      "fields": [
+        {
+          "name": "size",
           "typ": "u32",
+          "description": ""
+        },
+        {
+          "name": "charSpacing",
+          "typ": "i32",
+          "description": ""
+        },
+        {
+          "name": "lineSpacing",
+          "typ": "i32",
+          "description": ""
+        },
+        {
+          "name": "alignmentH",
+          "typ": "i32",
+          "description": ""
+        },
+        {
+          "name": "alignmentV",
+          "typ": "i32",
+          "description": ""
+        },
+        {
+          "name": "padding",
+          "typ": "i32",
           "description": ""
         }
       ],
-      "description": "Style property",
+      "description": "NOTE: Text style is defined by control",
       "custom": false
     }
   ],
@@ -3070,7 +3131,7 @@
     {
       "name": "RAYGUI_VERSION",
       "typ": "[]const u8",
-      "value": "\"4.0-dev\"",
+      "value": "\"4.0\"",
       "description": "",
       "custom": false
     },
@@ -3113,14 +3174,14 @@
       "name": "RAYGUI_MAX_CONTROLS",
       "typ": "i32",
       "value": "16",
-      "description": "Maximum number of standard controls",
+      "description": "Maximum number of controls",
       "custom": false
     },
     {
       "name": "RAYGUI_MAX_PROPS_BASE",
       "typ": "i32",
       "value": "16",
-      "description": "Maximum number of standard properties",
+      "description": "Maximum number of base properties",
       "custom": false
     },
     {
@@ -3218,6 +3279,20 @@
       "name": "RAYGUI_TABBAR_ITEM_WIDTH",
       "typ": "i32",
       "value": "160",
+      "description": "",
+      "custom": false
+    },
+    {
+      "name": "RAYGUI_MIN_SCROLLBAR_WIDTH",
+      "typ": "i32",
+      "value": "40",
+      "description": "",
+      "custom": false
+    },
+    {
+      "name": "RAYGUI_MIN_SCROLLBAR_HEIGHT",
+      "typ": "i32",
+      "value": "40",
       "description": "",
       "custom": false
     },
