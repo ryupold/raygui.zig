@@ -869,7 +869,7 @@ pub const GuiControl = enum(i32) {
     BUTTON = 2,
     /// Used also for: TOGGLEGROUP
     TOGGLE = 3,
-    /// Used also for: SLIDERBAR
+    /// Used also for: SLIDERBAR, TOGGLESLIDER
     SLIDER = 4,
     ///
     PROGRESSBAR = 5,

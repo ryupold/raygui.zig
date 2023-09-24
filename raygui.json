@@ -614,7 +614,8 @@
       ]
     }
   ],
-  "aliases": [],
+  "aliases": [
+  ],
   "enums": [
     {
       "name": "GuiState",
@@ -732,7 +733,7 @@
         {
           "name": "SLIDER",
           "value": 4,
-          "description": "Used also for: SLIDERBAR"
+          "description": "Used also for: SLIDERBAR, TOGGLESLIDER"
         },
         {
           "name": "PROGRESSBAR",
@@ -2401,7 +2402,8 @@
       ]
     }
   ],
-  "callbacks": [],
+  "callbacks": [
+  ],
   "functions": [
     {
       "name": "GuiEnable",
