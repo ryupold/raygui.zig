@@ -1,9 +1,9 @@
 const std = @import("std");
+const raylib = @import("raylib");
 const raygui = @cImport({
     @cInclude("raygui.h");
     @cInclude("raygui_marshal.h");
 });
-const raylib = @import("raylib");
 
 pub const Rectangle = raylib.Rectangle;
 pub const Vector2 = raylib.Vector2;

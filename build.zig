@@ -65,15 +65,15 @@ const sep = std.fs.path.sep_str;
 const dir_raygui = cwd ++ sep ++ "raygui/src";
 
 /// add this package to lib
-pub fn addTo(b: *std.Build, lib: *std.build.LibExeObjStep, target: std.zig.CrossTarget, optimize: std.builtin.Mode) void {
+pub fn addTo(b: *std.Build, lib: *std.Build.Step.Compile, target: std.Target.Query, optimize: std.builtin.Mode) void {
     _ = b;
     _ = optimize;
     _ = target;
 
-    if (lib.modules.get("raylib") orelse lib.modules.get("raylib.zig") orelse lib.modules.get("raylib-zig")) |raylib| {
-        lib.addAnonymousModule("raygui", .{
-            .source_file = .{ .path = cwd ++ sep ++ "raygui.zig" },
-            .dependencies = &.{
+    if (lib.root_module.import_table.get("raylib") orelse lib.root_module.import_table.get("raylib.zig") orelse lib.root_module.import_table.get("raylib-zig")) |raylib| {
+        lib.root_module.addAnonymousImport("raygui", .{
+            .root_source_file = .{ .path = cwd ++ sep ++ "raygui.zig" },
+            .imports = &.{
                 .{ .name = "raylib", .module = raylib },
             },
         });
