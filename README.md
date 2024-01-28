@@ -3,30 +3,38 @@
 # raygui.zig
 Idiomatic [raygui](https://github.com/raysan5/raygui) **RAYGUIAPI** (raygui.h) bindings for [Zig](https://ziglang.org/) (master).
 
-## usage
+## <a id="usage">usage</a>
 
-The easy way would be adding this as submodule directly in your source folder.
-Thats what I do until there is an official package manager for Zig.
-
-```sh
-cd $YOUR_SRC_FOLDER
-git submodule add https://github.com/ryupold/raygui.zig raygui
-git submodule update --init --recursive
+Add this as a dependency to your `build.zig.zon`
+```zig
+.{
+    .name = "example",
+    .version = "1.0.0",
+    .paths = ...,
+    .dependencies = .{
+        .raylib_zig = .{
+            .url = "https://github.com/ryupold/raygui.zig/archive/<commit>.tar.gz",
+            .hash = "<hash>",
+        },
+    },
+}
 ```
 
-The bindings have been prebuilt so you just need to add raylib as module
-
-build.zig:
+Then add the raygui module to your compile step in your `build.zig`. Note that module has a dependency on [`raygui.zig`](https://github.com/ryupold/raygui.zig), so you should probably configure your compile step with that.
 ```zig
-const raylib = @import("path/to/raylib.zig/build.zig");
-const raygui = @import("path/to/raygui.zig/build.zig");
+const std = @import("std");
 
-pub fn build(b: *std.Build) !void {
+pub fn build(b: *std.Build) !void
+{
     const target = b.standardTargetOptions(.{});
-    const mode = b.standardOptimizeOption(.{});
-    const exe = ...;
-    raylib.addTo(b, exe, target, mode);
-    raygui.addTo(b, exe, target, mode);
+    const optimize = b.standardOptimizeOption(.{});
+    const compile = ...;
+
+    const raygui_zig = b.dependency("raygui_zig", .{
+        .target = target,
+        .optimize = optimize,
+    });
+    compile.root_module.addImport("raygui", raygui_zig.module("raygui"));
 }
 ```
 
@@ -36,8 +44,8 @@ const raylib = @import("raylib");
 const raygui = @import("raygui");
 
 pub fn main() void {
+    raylib.SetConfigFlags(raylib.ConfigFlags{ .FLAG_WINDOW_RESIZABLE = true });
     raylib.InitWindow(800, 800, "hello world!");
-    raylib.SetConfigFlags(.FLAG_WINDOW_RESIZABLE);
     raylib.SetTargetFPS(60);
 
     defer raylib.CloseWindow();
@@ -45,11 +53,9 @@ pub fn main() void {
     while (!raylib.WindowShouldClose()) {
         raylib.BeginDrawing();
         defer raylib.EndDrawing();
-        
-        raylib.ClearBackground(raylib.BLACK);
-        raylib.DrawFPS(10, 10);
 
-        if (raygui.GuiButton(.{ .x = 100, .y = 100, .width = 200, .height = 100 }, "press me!")) {
+        raylib.ClearBackground(raylib.BLACK);
+        if (raygui.GuiButton(.{ .x = 100, .y = 100, .width = 200, .height = 100 }, "press me!") != 0) {
             std.debug.print("pressed\n", .{});
         }
     }
@@ -58,8 +64,6 @@ pub fn main() void {
 
 > See `build.zig` in [examples-raylib.zig](https://github.com/ryupold/examples-raylib.zig) for how to build.
 
-> Note: you only need the files `raygui.zig`, `raygui_marshal.h` and `raygui_marshal.c` for this to work
-> 
 This weird workaround with `raygui_marshal.h/raygui_marshal.c` I actually had to make for Webassembly builds to work, because passing structs as function parameters or returning them cannot be done on the Zig side somehow. If I try it, I get a runtime error "index out of bounds". This happens only in WebAssembly builds. So `raygui_marshal.c` must be compiled with `emcc`. See [build.zig](https://github.com/ryupold/examples-raylib.zig/blob/main/build.zig) in the examples.
 
 ## custom definitions
