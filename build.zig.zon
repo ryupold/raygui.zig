@@ -4,8 +4,8 @@
     .paths = .{""},
     .dependencies = .{
         .raygui = .{
-            .url = "https://github.com/raysan5/raygui/archive/40f3df5b865eee0cd87a9e4e1347cb04c87841f8.tar.gz",
-            .hash = "12209bb07b3926d027de330c05d9425eaa52cc1a40eed291628370ba759653d5f961",
+            .url = "https://github.com/raysan5/raygui/archive/45e7f967e62088b9fec02ac38c07d4b67d6466b0.tar.gz",
+            .hash = "1220bfb199fc2560ca902f0fdd658f79e673ead9760ade508c1e871f0f169a1c7e66",
         },
         .raylib_zig = .{
             .url = "https://github.com/kapricorn-media/raylib.zig/archive/f7d7ca14a086b4866e0b37013da4d18ab2d4af59.tar.gz",
