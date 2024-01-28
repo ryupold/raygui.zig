@@ -29,9 +29,10 @@ pub fn build(b: *std.Build) !void {
     });
     module.addIncludePath(.{ .path = "." });
     module.addIncludePath(raygui.path("src"));
+    module.addIncludePath(raylib.path("src"));
     // TODO: relative path doesn't work here when used as a dependency, not sure why...
     const marshal_c_path = try b.build_root.join(b.allocator, &.{"raygui_marshal.c"});
-    module.addCSourceFile(.{ .file = .{.path = marshal_c_path}, .flags = &.{} });
+    module.addCSourceFile(.{ .file = .{.path = marshal_c_path}, .flags = &.{"-DRAYGUI_IMPLEMENTATION"} });
     module.link_libc = true;
     if (target.result.os.tag == .emscripten) {
         if (b.sysroot == null) {
