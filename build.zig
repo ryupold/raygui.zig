@@ -1,26 +1,63 @@
 const std = @import("std");
-const generate = @import("generate.zig");
 
-const rayguiSrc = "raygui/src/";
+const generate = @import("generate.zig");
 
 pub fn build(b: *std.Build) !void {
     const target = b.standardTargetOptions(.{});
+    const optimize = b.standardOptimizeOption(.{});
 
+    const raylib_zig = b.dependency("raylib_zig", .{
+        .target = target,
+        .optimize = optimize,
+    });
+    const raylib = raylib_zig.builder.dependency("raylib", .{
+        .target = target,
+        .optimize = optimize,
+    });
+    const raygui = b.dependency("raygui", .{
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const module = b.addModule("raygui", .{
+        .root_source_file = .{ .path = "raygui.zig" },
+        .target = target,
+        .optimize = optimize,
+        .imports = &.{
+            .{ .name = "raylib", .module = raylib_zig.module("raylib") },
+        },
+    });
+    module.addIncludePath(.{ .path = "." });
+    module.addIncludePath(raygui.path("src"));
+    // TODO: relative path doesn't work here when used as a dependency, not sure why...
+    const marshal_c_path = try b.build_root.join(b.allocator, &.{"raygui_marshal.c"});
+    module.addCSourceFile(.{ .file = .{.path = marshal_c_path}, .flags = &.{} });
+    module.link_libc = true;
+    if (target.result.os.tag == .emscripten) {
+        if (b.sysroot == null) {
+            @panic("Pass '--sysroot \"$EMSDK/upstream/emscripten\"'");
+        }
+        const emscripten_include_path = try std.fs.path.join(b.allocator, &.{ b.sysroot.?, "cache", "sysroot", "include" });
+        module.addIncludePath(.{ .path = emscripten_include_path });
+    }
+
+    // Set up binding generation library & exes.
     //--- parse raygui and generate JSONs for all signatures --------------------------------------
     const jsons = b.step("parse", "parse raygui headers and generate raylib parser output as json");
     const raylib_parser_build = b.addExecutable(.{
         .name = "raylib_parser",
-        .root_source_file = std.build.FileSource.relative("raylib_parser.zig"),
+        .root_source_file = .{.path = "raylib_parser.zig"},
         .target = target,
-        .optimize = .ReleaseFast,
+        .optimize = optimize,
     });
-    raylib_parser_build.addCSourceFile(.{ .file = .{ .path = "../raylib/raylib/parser/raylib_parser.c" }, .flags = &.{} });
+    raylib_parser_build.addCSourceFile(.{ .file = raylib.path("parser/raylib_parser.c"), .flags = &.{} });
     raylib_parser_build.linkLibC();
 
     //raygui
     const raygui_H = b.addRunArtifact(raylib_parser_build);
+    const path_raygui_H = try b.allocator.dupe(u8, raygui.path("src/raygui.h").getPath(b));
     raygui_H.addArgs(&.{
-        "-i", "raygui/src/raygui.h",
+        "-i", path_raygui_H,
         "-o", "raygui.json",
         "-f", "JSON",
         "-d", "RAYGUIAPI",
@@ -31,7 +68,7 @@ pub fn build(b: *std.Build) !void {
     const intermediate = b.step("intermediate", "generate intermediate representation of the results from 'zig build parse' (keep custom=true)");
     var intermediateZig = b.addRunArtifact(b.addExecutable(.{
         .name = "intermediate",
-        .root_source_file = std.build.FileSource.relative("intermediate.zig"),
+        .root_source_file = .{.path = "intermediate.zig"},
         .target = target,
     }));
     intermediate.dependOn(&intermediateZig.step);
@@ -40,7 +77,7 @@ pub fn build(b: *std.Build) !void {
     const bindings = b.step("bindings", "generate bindings in from bindings.json");
     var generateZig = b.addRunArtifact(b.addExecutable(.{
         .name = "generate",
-        .root_source_file = std.build.FileSource.relative("generate.zig"),
+        .root_source_file = .{.path = "generate.zig"},
         .target = target,
     }));
     const fmt = b.addFmt(.{ .paths = &.{generate.outputFile} });
@@ -51,37 +88,4 @@ pub fn build(b: *std.Build) !void {
     const raylib_parser_install = b.step("raylib_parser", "build ./zig-out/bin/raylib_parser.exe");
     const generateBindings_install = b.addInstallArtifact(raylib_parser_build, .{});
     raylib_parser_install.dependOn(&generateBindings_install.step);
-}
-
-// above: generate library
-// below: linking (use as dependency)
-
-fn current_file() []const u8 {
-    return @src().file;
-}
-
-const cwd = std.fs.path.dirname(current_file()).?;
-const sep = std.fs.path.sep_str;
-const dir_raygui = cwd ++ sep ++ "raygui/src";
-
-/// add this package to lib
-pub fn addTo(b: *std.Build, lib: *std.Build.Step.Compile, target: std.Target.Query, optimize: std.builtin.Mode) void {
-    _ = b;
-    _ = optimize;
-    _ = target;
-
-    if (lib.root_module.import_table.get("raylib") orelse lib.root_module.import_table.get("raylib.zig") orelse lib.root_module.import_table.get("raylib-zig")) |raylib| {
-        lib.root_module.addAnonymousImport("raygui", .{
-            .root_source_file = .{ .path = cwd ++ sep ++ "raygui.zig" },
-            .imports = &.{
-                .{ .name = "raylib", .module = raylib },
-            },
-        });
-        lib.addIncludePath(.{ .path = dir_raygui });
-        lib.addIncludePath(.{ .path = cwd });
-        lib.linkLibC();
-        lib.addCSourceFile(.{ .file = .{ .path = cwd ++ sep ++ "raygui_marshal.c" }, .flags = &.{"-DRAYGUI_IMPLEMENTATION"} });
-    } else {
-        std.debug.panic("lib needs to have 'raylib', 'raylib.zig' or 'raylib-zig' as module dependency", .{});
-    }
 }

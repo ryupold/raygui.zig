@@ -1,0 +1,15 @@
+.{
+    .name = "raygui.zig",
+    .version = "0.0.0",
+    .paths = .{""},
+    .dependencies = .{
+        .raygui = .{
+            .url = "https://github.com/raysan5/raygui/archive/40f3df5b865eee0cd87a9e4e1347cb04c87841f8.tar.gz",
+            .hash = "12209bb07b3926d027de330c05d9425eaa52cc1a40eed291628370ba759653d5f961",
+        },
+        .raylib_zig = .{
+            .url = "https://github.com/kapricorn-media/raylib.zig/archive/f7d7ca14a086b4866e0b37013da4d18ab2d4af59.tar.gz",
+            .hash = "12206c13730136f11e9811ed4a0d135eb66cbd0e20ca3e872016993b002d956ad55a",
+        },
+    },
+}
