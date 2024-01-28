@@ -3,7 +3,64 @@
 # raygui.zig
 Idiomatic [raygui](https://github.com/raysan5/raygui) **RAYGUIAPI** (raygui.h) bindings for [Zig](https://ziglang.org/) (master).
 
-## usage
+## <a id="usage">usage</a>
+
+Add this as a dependency to your `build.zig.zon`
+```zig
+.{
+    .name = "example",
+    .version = "1.0.0",
+    .paths = ...,
+    .dependencies = .{
+        .raylib_zig = .{
+            .url = "https://github.com/ryupold/raygui.zig/archive/<commit>.tar.gz",
+            .hash = "<hash>",
+        },
+    },
+}
+```
+
+Then add the raygui module to your compile step in your `build.zig`. Note that module has a dependency on [`raygui.zig`](https://github.com/ryupold/raygui.zig), so you should probably configure your compile step with that.
+```zig
+const std = @import("std");
+
+pub fn build(b: *std.Build) !void
+{
+    const target = b.standardTargetOptions(.{});
+    const optimize = b.standardOptimizeOption(.{});
+    const compile = ...;
+
+    const raygui_zig = b.dependency("raygui_zig", .{
+        .target = target,
+        .optimize = optimize,
+    });
+    compile.root_module.addImport("raygui", raygui_zig.module("raygui"));
+}
+```
+
+and import in main.zig:
+```zig
+const raylib = @import("raylib");
+const raygui = @import("raygui");
+
+pub fn main() void {
+    raylib.SetConfigFlags(raylib.ConfigFlags{ .FLAG_WINDOW_RESIZABLE = true });
+    raylib.InitWindow(800, 800, "hello world!");
+    raylib.SetTargetFPS(60);
+
+    defer raylib.CloseWindow();
+
+    while (!raylib.WindowShouldClose()) {
+        raylib.BeginDrawing();
+        defer raylib.EndDrawing();
+
+        raylib.ClearBackground(raylib.BLACK);
+        raylib.DrawFPS(10, 10);
+
+        raylib.DrawText("hello world!", 100, 100, 20, raylib.YELLOW);
+    }
+}
+```
 
 The easy way would be adding this as submodule directly in your source folder.
 Thats what I do until there is an official package manager for Zig.
